@@ -7,6 +7,6 @@ angular
         'shared',
 
         //inject here your components
-        'about',
+
         'account'
     ]);
