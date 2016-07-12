@@ -2,10 +2,7 @@ module.exports = function() {
     return {
         sources: {
             index: 'src/index.html',
-            scripts: [
-                'src/app/**/*.js',
-                'src/assets/lib/**/*.js'
-            ],
+            scripts: 'src/app/**/*.js',
             stylesheets: [
                 'node_modules/ng-tags-input/build/ng-tags-input.min.css',
                 'src/assets/**/*.css',
@@ -25,7 +22,8 @@ module.exports = function() {
                 'node_modules/jquery/dist/jquery.min.js',
                 'node_modules/lodash/lodash.min.js',
                 'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
-                'node_modules/ng-tags-input/build/ng-tags-input.min.js'
+                'node_modules/ng-tags-input/build/ng-tags-input.min.js',
+                'src/assets/lib/**/*.js'
             ]
         },
         dev: {
