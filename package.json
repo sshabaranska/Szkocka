@@ -1,0 +1,50 @@
+{
+  "name": "Szkocka",
+  "version": "1.0.0",
+  "description": "Szkocka Group Research Platform",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/szkocka/front-end"
+  },
+  "keywords": [
+    "szkocka"
+  ],
+  "author": "Svitlana Sikora",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/szkocka/front-end/issues"
+  },
+  "homepage": "https://github.com/szkocka/front-end",
+  "devDependencies": {
+    "del": "^2.2.1",
+    "event-stream": "^3.3.3",
+    "gulp": "^3.9.1",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-inject": "^4.1.0",
+    "gulp-less": "^3.1.0",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-ng-html2js": "^0.2.2"
+  },
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-bootstrap": "^0.12.2",
+    "angular-cookies": "^1.5.7",
+    "angular-moment": "^1.0.0-beta.6",
+    "angular-resource": "^1.5.7",
+    "angular-sanitize": "^1.5.7",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "^3.3.6",
+    "es5-shim": "^4.5.9",
+    "font-awesome": "^4.6.3",
+    "jquery": "^3.1.0",
+    "json3": "^3.3.2",
+    "lodash": "^4.13.1",
+    "ng-file-upload": "^12.0.4",
+    "ng-tags-input": "^3.1.1"
+  }
+}
