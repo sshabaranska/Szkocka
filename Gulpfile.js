@@ -129,7 +129,7 @@ function buildStyles() {
         .pipe(gulp.dest(config.dev.stylesheets));
 }
 
-function buildStylesReleases() {
+function buildStylesRelease() {
     return gulp.src(config.sources.stylesheets)
         .pipe(less())
         .pipe(concat('app.css'))
