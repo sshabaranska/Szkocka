@@ -112,12 +112,12 @@ function buildTemplatesRelease() {
 }
 
 function buildVendorScripts() {
-    return gulp.src(config.sources.vendor)
+    return gulp.src(config.sources.vendors)
         .pipe(gulp.dest(config.dev.vendors));
 }
 
 function buildVendorScriptsRelease() {
-    return gulp.src(config.sources.vendor)
+    return gulp.src(config.sources.vendors)
         .pipe(concat('vendor.js'))
         .pipe(gulp.dest(config.release.vendors));
 }
