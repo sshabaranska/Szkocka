@@ -1,3 +1,5 @@
-/**
- * Created by vu on 7/8/16.
- */
+angular
+    .module('account', [
+        'sign-in',
+        'sign-up'
+    ]);

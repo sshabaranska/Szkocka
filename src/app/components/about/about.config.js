@@ -1,3 +1,25 @@
-/**
- * Created by vu on 7/8/16.
- */
+;(function() {
+    'use strict';
+
+    angular
+        .module('about')
+        .config(config);
+
+    /* ngInject */
+    function config($stateProvider) {
+        $stateProvider.state({
+            url: 'about',
+            resolve: {
+                aboutService: 'aboutService',
+                AboutContentResolver: AboutContentResolver
+            },
+            templateUrl: 'components/about/about.html',
+            controller: 'AboutController'
+        });
+    }
+
+    /* ngInject */
+    function AboutContentResolver(aboutService) {
+        return aboutService.getContent();
+    }
+})();
