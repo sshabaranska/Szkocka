@@ -8,5 +8,7 @@ angular
 
         //inject here your components
 
-        'account'
+        'about',
+        'account',
+        'news'
     ]);
