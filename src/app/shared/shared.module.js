@@ -1,2 +1,7 @@
 angular
-    .module('shared', []);
+    .module('shared', [
+        'utils',
+        'user',
+        'rest',
+        'appSettings'
+    ]);
