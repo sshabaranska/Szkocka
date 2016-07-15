@@ -38,6 +38,8 @@
             saveSettings: function(settings) {
                 Assert.isString(settings.API_URL, 'Invalid "API_URL" type');
                 Assert.isNumber(settings.loadLimit, 'Invalid "loadLimit" type');
+                Assert.isNumber(settings.tagsShortListQty, 'Invalid "tagsShortListQty" type');
+                Assert.isNumber(settings.carouselInterval, 'Invalid "carouselInterval" type');
 
                 this._settings = settings;
                 CacheStore.cacheItem(this._settingsName, JSON.stringify(this._settings));
