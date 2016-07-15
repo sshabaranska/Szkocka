@@ -6,7 +6,7 @@
         .run(run);
 
     /* ngInject */
-    function run(Auth) {
-        Auth.init().then( function() {});
+    function run() {
+        //Auth.init().then( function() {});
     }
 })();

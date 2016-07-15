@@ -1,6 +1,7 @@
 angular
     .module('app', [
         //inject here angular modules
+        'ui.router',
 
         'auth',
         'layouts',
@@ -10,5 +11,8 @@ angular
 
         'about',
         'account',
-        'news'
+        'home',
+        'news',
+
+        'templates'
     ]);

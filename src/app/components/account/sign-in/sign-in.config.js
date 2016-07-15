@@ -7,10 +7,15 @@
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state({
-            url: 'sign-in',
-            templateUrl: 'components/account/sign-in/sign-in.html',
-            controller: 'SignInController'
+        $stateProvider.state('sign-in', {
+            url: '^/sign-in',
+            parent: 'free-area',
+            views: {
+                content: {
+                    templateUrl: 'components/account/sign-in/sign-in.html',
+                    controller: 'SignInController'
+                }
+            }
         });
     }
 })();

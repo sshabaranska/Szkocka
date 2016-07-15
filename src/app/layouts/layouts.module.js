@@ -1,2 +1,5 @@
 angular
-    .module('layouts', []);
+    .module('layouts', [
+        'free-area',
+        'restricted-area'
+    ]);

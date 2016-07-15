@@ -6,13 +6,13 @@
         .factory('signInService', signInService);
 
     /* ngInject */
-    function signInService() {
+    function signInService($http, API_URL) {
         return {
             signIn: signIn
         };
 
-        function signIn() {
-            //TODO: Request to sign-in end-point...
+        function signIn(data) {
+            return $http.post(API_URL + 'auth/login', data);
         }
     }
 })();
