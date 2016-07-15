@@ -7,6 +7,15 @@
 
     /* ngInject */
     function config($stateProvider) {
-
+        $stateProvider.state('home', {
+            url: '^/',
+            parent: 'restricted-area',
+            views: {
+                content: {
+                    templateUrl: 'components/home/home.html',
+                    controller: 'HomeController'
+                }
+            }
+        });
     }
 })();

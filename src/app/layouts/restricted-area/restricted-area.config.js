@@ -7,7 +7,7 @@
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state({
+        $stateProvider.state('restricted-area', {
             abstract: true,
             views: {
                 content: {

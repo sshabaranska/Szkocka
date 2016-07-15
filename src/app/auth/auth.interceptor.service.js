@@ -4,9 +4,16 @@
         .factory('authInterceptorService', authInterceptorService);
 
     /* ngInject */
-    function authInterceptorService($http, $q) {
+    function authInterceptorService($q, $timeout, $rootScope) {
         return {
-
+            responseError: function(response) {
+                if (response.status === 401) {
+                    $timeout(function() {
+                        $rootScope.signOut();
+                    });
+                }
+                return $q.reject(response);
+            }
         }
     }
 })();

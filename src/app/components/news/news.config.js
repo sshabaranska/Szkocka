@@ -7,8 +7,8 @@
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state({
-            url: 'news',
+        $stateProvider.state('news', {
+            url: '^/news',
             resolve: {
                 aboutService: 'newsService',
                 News: NewsResolver

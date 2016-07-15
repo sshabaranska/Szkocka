@@ -7,8 +7,8 @@
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state({
-            url: 'sign-in',
+        $stateProvider.state('sign-in', {
+            url: '^/sign-in',
             parent: 'free-area',
             views: {
                 content: {

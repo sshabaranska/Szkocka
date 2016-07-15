@@ -7,7 +7,7 @@
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state({
+        $stateProvider.state('free-area', {
             abstract: true,
             views: {
                 content: {
