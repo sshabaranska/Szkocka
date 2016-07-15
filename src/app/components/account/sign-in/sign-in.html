@@ -1,10 +1,10 @@
 <h3>This is the sign-in page</h3>
 <form novalidate>
     <label>
-        <input type="email" name="email" />
+        <input type="email" name="email" ng-model="data.email"/>
     </label>
     <label>
-        <input type="password" name="password" />
+        <input type="password" name="password" ng-model="data.password"/>
     </label>
     <div>
         <button ng-click="signIn($event)">Sign-in</button>

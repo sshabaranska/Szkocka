@@ -2,18 +2,16 @@
     'use strict';
 
     angular
-        .module('sign-in')
+        .module('restricted-area')
         .config(config);
 
     /* ngInject */
     function config($stateProvider) {
         $stateProvider.state({
-            url: 'sign-in',
-            parent: 'free-area',
+            abstract: true,
             views: {
                 content: {
-                    templateUrl: 'components/account/sign-in/sign-in.html',
-                    controller: 'SignInController'
+                    templateUrl: 'layouts/restricted-area/restricted-area.html'
                 }
             }
         });
