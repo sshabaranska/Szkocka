@@ -6,7 +6,7 @@
         .factory('RestService', restService);
 
     /* ngInject */
-    function restService($http, AppSettings, Assert) {
+    function restService($http, Assert, APP_SETTINGS) {
 
         return {
             /**
@@ -14,7 +14,7 @@
              * @return {String}
              */
             _getBaseUrl: function() {
-                return AppSettings.getAppServer();
+                return APP_SETTINGS.API_URL;
             },
 
             /**

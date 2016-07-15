@@ -6,10 +6,10 @@
         .factory('userService', userService);
 
     /* ngInject */
-    function userService($resource, AppSettings) {
+    function userService($resource, APP_SETTINGS) {
 
         /** @private {String} */
-        var url = AppSettings.getAppServer();
+        var url = APP_SETTINGS.API_URL;
 
         return $resource(url + 'users/:id/:controller',
             {
