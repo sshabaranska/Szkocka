@@ -9,12 +9,17 @@
     function config($stateProvider) {
         $stateProvider.state('about', {
             url: '^/about',
+            parent: 'free-area',
             resolve: {
                 aboutService: 'aboutService',
                 AboutContentResolver: AboutContentResolver
             },
-            templateUrl: 'components/about/about.html',
-            controller: 'AboutController'
+            views: {
+                content: {
+                    templateUrl: 'components/about/about.html',
+                    controller: 'AboutController'
+                }
+            }
         });
     }
 
