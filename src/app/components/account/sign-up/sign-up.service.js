@@ -6,13 +6,14 @@
         .factory('signUpService', signUpService);
 
     /* ngInject */
-    function signUpService() {
+    function signUpService($http, API_URL) {
         return {
             signUp: signUp
         };
 
-        function signUp() {
-            //TODO: Request to sign-up end-point...
+        function signUp(data) {
+            //TODO: Set sign-up uri
+            return $http.post(API_URL + 'users', data);
         }
     }
 })();

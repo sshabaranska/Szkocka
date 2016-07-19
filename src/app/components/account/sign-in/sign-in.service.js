@@ -12,7 +12,7 @@
         };
 
         function signIn(data) {
-            return $http.post(API_URL + 'auth/login', data);
+            return $http.post(API_URL + 'auth/local', data);
         }
     }
 })();

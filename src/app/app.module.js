@@ -13,6 +13,7 @@ angular
         'account',
         'home',
         'news',
+        'projects',
 
         'templates'
     ]);

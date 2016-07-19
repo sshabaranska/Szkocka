@@ -1,0 +1,44 @@
+<section class="navigation-bar">
+    <ul class="left-part">
+        <li>
+            <a ui-sref="home">Research</a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="home">Home</a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="about">About</a>
+        </li>
+    </ul>
+    <div class="right-part">
+        <div class="free-area">
+            <ul class="right-part">
+                <li ui-sref-active="active">
+                    <a ui-sref="sign-in">Sign in</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="sign-up">Sign up</a>
+                </li>
+            </ul>
+        </div>
+        <div class="restricted-area">
+            <ul class="right-part">
+                <li ui-sref-active="active">
+                    <a ui-sref="projects">My projecfts</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="news">News</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="profile">Profile</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="settings">Settings</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ng-click="signOut()">Sign out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>

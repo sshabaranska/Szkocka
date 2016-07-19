@@ -3,11 +3,9 @@
 
     angular
         .module('app')
-        .constant('APP_SETTINGS', {
-            'API_URL': 'https://szkocka-1080.appspot.com/',
-            'LOAD_LIMIT': '20',
-            'TAGS_SHORT_LIST_QTY': '15',
-            'CAROUSEL_INTERVAL': '5000',
-            'APP_VERSION': '1.0'
-        });
+        .constant('APP_VERSION', '0.01')
+        .constant('API_URL', 'https://szkocka-1080.appspot.com/')
+        .constant('LOAD_LIMIT', 20)
+        .constant('TAGS_SHORT_LIST_QTY', 15)
+        .constant('CAROUSEL_INTERVAL', 5000);
 })();

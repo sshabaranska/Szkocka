@@ -1,0 +1,21 @@
+;(function() {
+    'use strict';
+
+    angular
+        .module('project')
+        .config(config);
+
+    /* ngInject */
+    function config($stateProvider) {
+        $stateProvider.state('project', {
+            url: '^/project',
+            parent: 'restricted-area',
+            views: {
+                content: {
+                    templateUrl: 'components/projects/project/project.html',
+                    controller: 'ProjectController'
+                }
+            }
+        });
+    }
+})();

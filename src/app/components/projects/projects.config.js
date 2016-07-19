@@ -2,18 +2,18 @@
     'use strict';
 
     angular
-        .module('sign-up')
+        .module('projects')
         .config(config);
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state('sign-up', {
-            url: '^/sign-up',
+        $stateProvider.state('projects', {
+            url: '^/projects',
             parent: 'free-area',
             views: {
                 content: {
-                    templateUrl: 'components/account/sign-up/sign-up.html',
-                    controller: 'SignUpController'
+                    templateUrl: 'components/projects/projects.html',
+                    controller: 'ProjectsController'
                 }
             }
         });
