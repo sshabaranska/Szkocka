@@ -6,10 +6,14 @@ module.exports = function() {
             stylesheets: [
                 'node_modules/ng-tags-input/build/ng-tags-input.min.css',
                 'src/assets/**/*.css',
-                'src/app/**/*.less'
+                'src/app/app.less',
+
             ],
             images: 'src/assets/images/**/*',
-            fonts: 'src/assets/fonts/**/*',
+            fonts: [
+                'node_modules/bootstrap/fonts/**/*',
+                'node_modules/font-awesome/fonts/**/*'
+                ],
             templates: 'src/app/**/*.html',
             vendors: [
                 'node_modules/angular/angular.js',
@@ -30,6 +34,7 @@ module.exports = function() {
         dev: {
             index: 'dev',
             scripts: 'dev/app',
+            less: 'dev/less',
             stylesheets: 'dev/stylesheets',
             images: 'dev/images',
             fonts: 'dev/fonts',
