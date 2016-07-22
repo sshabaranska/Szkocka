@@ -8,24 +8,19 @@ var gulp = require('gulp'),
     ngHtml2js = require('gulp-ng-html2js'),
     less = require('gulp-less'),
     del = require('del'),
-    eventStream = require('event-stream');
+    eventStream = require('event-stream'),
+    environments = require('gulp-environments');
 
-gulp.task('clean-dev', cleanDev);
+var destination = environments.production() ? config.release : config.dev;
+
+gulp.task('clean', clean);
 gulp.task('compile', compile);
-gulp.task('dev', ['clean-dev'], compile);
+gulp.task('build', ['clean'], compile);
 
-gulp.task('clean-release', cleanRelease);
-gulp.task('compile-release', compileRelease);
-gulp.task('release', ['clean-release'], compileRelease);
+gulp.task('default', ['build']);
 
-gulp.task('default', ['dev']);
-
-function cleanDev() {
-    return del(config.dev.index);
-}
-
-function cleanRelease() {
-    return del(config.release.index);
+function clean() {
+    return del(destination.index);
 }
 
 function compile() {
@@ -36,102 +31,49 @@ function compile() {
     );
 }
 
-function compileRelease() {
-    return eventStream.merge(
-        buildIndexRelease(),
-        buildImagesRelease(),
-        buildFontsRelease()
-    );
-}
-
 function buildIndex() {
     return gulp.src(config.sources.index)
+        .pipe(inject(buildVendorScripts(), { relative: true, name: 'vendor' }))
         .pipe(inject(buildScripts(), { relative: true }))
         .pipe(inject(buildTemplates(), { relative: true, name: 'templates' }))
-        .pipe(inject(buildVendorScripts(), { relative: true, name: 'vendor' }))
         .pipe(inject(buildStyles(), { relative: true }))
-        .pipe(gulp.dest(config.dev.index));
-}
-
-function buildIndexRelease() {
-    return gulp.src(config.sources.index)
-        .pipe(inject(buildVendorScriptsRelease(), { relative: true, name: 'vendor' }))
-        .pipe(inject(buildScriptsRelease(), { relative: true }))
-        .pipe(inject(buildTemplatesRelease(), { relative: true, name: 'templates' }))
-        .pipe(inject(buildStylesRelease(), { relative: true }))
-        .pipe(gulp.dest(config.release.index));
+        .pipe(gulp.dest(destination.index));
 }
 
 function buildImages() {
     return gulp.src(config.sources.images)
-        .pipe(gulp.dest(config.dev.images));
-}
-
-function buildImagesRelease() {
-    return gulp.src(config.sources.images)
-        .pipe(gulp.dest(config.release.images));
+        .pipe(gulp.dest(destination.images));
 }
 
 function buildFonts() {
     return gulp.src(config.sources.fonts)
-        .pipe(gulp.dest(config.dev.fonts));
-}
-
-function buildFontsRelease() {
-    return gulp.src(config.sources.fonts)
-        .pipe(gulp.dest(config.release.fonts));
+        .pipe(gulp.dest(destination.fonts));
 }
 
 function buildScripts() {
     return gulp.src(config.sources.scripts)
         .pipe(angularFileSort())
         .pipe(ngAnnotate())
-        .pipe(gulp.dest(config.dev.scripts));
-}
-
-function buildScriptsRelease() {
-    return gulp.src(config.sources.scripts)
-        .pipe(angularFileSort())
-        .pipe(ngAnnotate())
-        .pipe(concat('build.js'))
-        .pipe(gulp.dest(config.release.scripts));
+        .pipe(environments.production(concat('build.js')))
+        .pipe(gulp.dest(destination.scripts));
 }
 
 function buildTemplates() {
     return gulp.src(config.sources.templates)
         .pipe(ngHtml2js({moduleName: 'templates'}))
         .pipe(concat('templates.js'))
-        .pipe(gulp.dest(config.dev.templates));
-}
-
-function buildTemplatesRelease() {
-    return gulp.src(config.sources.templates)
-        .pipe(ngHtml2js({moduleName: 'templates'}))
-        .pipe(concat('templates.js'))
-        .pipe(gulp.dest(config.release.templates));
+        .pipe(gulp.dest(destination.templates));
 }
 
 function buildVendorScripts() {
     return gulp.src(config.sources.vendors)
-        .pipe(gulp.dest(config.dev.vendors));
-}
-
-function buildVendorScriptsRelease() {
-    return gulp.src(config.sources.vendors)
-        .pipe(concat('vendor.js'))
-        .pipe(gulp.dest(config.release.vendors));
+        .pipe(environments.production(concat('vendor.js')))
+        .pipe(gulp.dest(destination.vendors));
 }
 
 function buildStyles() {
     return gulp.src(config.sources.stylesheets)
         .pipe(less())
         .pipe(concat('app.css'))
-        .pipe(gulp.dest(config.dev.stylesheets));
-}
-
-function buildStylesRelease() {
-    return gulp.src(config.sources.stylesheets)
-        .pipe(less())
-        .pipe(concat('app.css'))
-        .pipe(gulp.dest(config.release.stylesheets));
+        .pipe(gulp.dest(destination.stylesheets));
 }

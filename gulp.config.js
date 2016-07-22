@@ -6,8 +6,10 @@ module.exports = function() {
             stylesheets: [
                 'node_modules/ng-tags-input/build/ng-tags-input.min.css',
                 'src/assets/**/*.css',
-                'src/app/app.less',
-
+                //'node_modules/bootstrap/less/bootstrap.less',
+                //'node_modules/font-awesome/less/font-awesome.less',
+                'src/app/app.less'
+                //'src/app/**/*.less'
             ],
             images: 'src/assets/images/**/*',
             fonts: [
