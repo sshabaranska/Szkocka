@@ -6,13 +6,13 @@
         .factory('projectsService', projectsService);
 
     /* ngInject */
-    function projectsService() {
+    function projectsService($http, API_URL) {
         return {
             getProjects: getProjects
         };
 
         function getProjects() {
-
+            return $http.get(API_URL + 'queries/researches');
         }
     }
 })();

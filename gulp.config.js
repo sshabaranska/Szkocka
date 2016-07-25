@@ -26,6 +26,7 @@ module.exports = function() {
                 'node_modules/angular-resource/angular-resource.js',
                 'node_modules/angular-sanitize/angular-sanitize.js',
                 'node_modules/angular-ui-router/release/angular-ui-router.js',
+                'node_modules/angular-mocks/angular-mocks.js',
                 'node_modules/jquery/dist/jquery.min.js',
                 'node_modules/lodash/lodash.min.js',
                 'node_modules/ng-file-upload/dist/ng-file-upload.min.js',

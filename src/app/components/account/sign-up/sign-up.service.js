@@ -13,7 +13,7 @@
 
         function signUp(data) {
             //TODO: Set sign-up uri
-            return $http.post(API_URL + 'users', data);
+            return $http.post(API_URL + 'auth/register', data);
         }
     }
 })();

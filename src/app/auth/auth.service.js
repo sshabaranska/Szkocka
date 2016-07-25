@@ -13,8 +13,8 @@
             isAuth: isAuth
         };
 
-        function auth(token) {
-            activeToken = token;
+        function auth(data) {
+            activeToken = data.token;
             //TODO: Store token to localStorage or cookies...
         }
 

@@ -3,6 +3,8 @@ angular
         //inject here angular modules
         'ui.router',
 
+        'mock',
+
         'auth',
         'layouts',
         'shared',

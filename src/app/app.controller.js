@@ -6,14 +6,7 @@
         .controller('AppController', AppController);
 
     /* ngInject */
-    function AppController($scope, $rootScope, $state, authService) {
+    function AppController($scope, $state, authService) {
 
-        $rootScope.signOut = signOut;
-
-
-        function signOut() {
-            authService.unAuth();
-            $state.go('sign-in');
-        }
     }
 })();
