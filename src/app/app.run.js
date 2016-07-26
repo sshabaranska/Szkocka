@@ -9,6 +9,7 @@
     function run($rootScope, $state, $cookies, authService) {
         $rootScope.signOut = signOut;
 
+        //Checking auth...
         if ($cookies.get('token')) {
             authService.auth($cookies.get('token'));
         }
