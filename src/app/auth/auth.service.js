@@ -4,7 +4,7 @@
         .factory('authService', authService);
 
     /* ngInject */
-    function authService() {
+    function authService($q) {
         var activeToken = false;
 
         return {
@@ -15,6 +15,7 @@
 
         function auth(data) {
             activeToken = data.token;
+            console.log(activeToken);
             //TODO: Store token to localStorage or cookies...
         }
 
