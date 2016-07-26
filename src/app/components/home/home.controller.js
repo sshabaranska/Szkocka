@@ -6,7 +6,12 @@
         .controller('HomeController', HomeController);
 
     /* ngInject */
-    function HomeController($scope) {
+    function HomeController($scope, projectsService) {
+        projectsService.getProjects()
+            .then(function(data) {
+                console.log(data);
+            }, function() {
 
+            });
     }
 })();

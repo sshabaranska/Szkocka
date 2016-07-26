@@ -6,7 +6,12 @@
         .run(run);
 
     /* ngInject */
-    function run() {
-        //Auth.init().then( function() {});
+    function run($rootScope, $state, authService) {
+        $rootScope.signOut = signOut;
+
+        function signOut() {
+            authService.unAuth();
+            $state.go('sign-in');
+        }
     }
 })();

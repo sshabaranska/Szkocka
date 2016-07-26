@@ -6,17 +6,21 @@
         .controller('SignUpController', SignUpController);
 
     /* ngInject */
-    function SignUpController($scope, signUpService, authService) {
+    function SignUpController($scope, $state, signUpService, authService) {
+        $scope.user = {};
         $scope.signUp = signUp;
 
         function signUp(event) {
             event.preventDefault();
 
-            signUpService.signUp().then(function(data) {
+
+            console.log($scope.user);
+            signUpService.signUp($scope.user).then(function(data) {
                 //TODO: Successful signing up...
-                //Only of data is token...
                 authService.auth(data);
-            }, function() {
+                $state.go('home');
+            }, function(data) {
+                console.log(data);
                 //TODO: Unsuccessful signing up...
             });
         }

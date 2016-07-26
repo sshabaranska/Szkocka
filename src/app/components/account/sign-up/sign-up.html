@@ -4,7 +4,7 @@
             <h1>Sign up</h1>
         </div>
         <div class="col-sm-12">
-            <form class="form" name="form" novalidate>
+            <form ng-submit="signUp($event)" class="form" name="form" novalidate>
                 <div class="form-group">
                     <label>Name</label>
                     <input type="text" name="name" class="form-control" ng-model="user.name"
@@ -27,7 +27,7 @@
                 </div>
                 <div>
                     <button class="btn btn-primary btn-lg btn-login" type="submit">Sign-up</button>
-                    <a class="btn btn-default btn-lg btn-register" href="#">Sign-in</a>
+                    <a class="btn btn-default btn-lg btn-register" ui-sref="sign-in">Sign-in</a>
                 </div>
             </form>
         </div>
