@@ -1,5 +1,6 @@
 angular
     .module('projects', [
-        //'add',
-        'project'
+        'add',
+        'project',
+        'update'
     ]);

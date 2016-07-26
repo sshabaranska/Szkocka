@@ -9,10 +9,11 @@
     function config($stateProvider) {
         $stateProvider.state('news', {
             url: '^/news',
-            resolve: {
-                aboutService: 'newsService',
-                News: NewsResolver
-            },
+            parent: 'restricted-area',
+            // resolve: {
+            //     aboutService: 'newsService',
+            //     News: NewsResolver
+            // },
             templateUrl: 'components/news/news.html',
             controller: 'NewsController'
         });
