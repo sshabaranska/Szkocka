@@ -15,14 +15,15 @@
 
 
             console.log($scope.user);
-            signUpService.signUp($scope.user).then(function(data) {
-                //TODO: Successful signing up...
-                authService.auth(data);
-                $state.go('home');
-            }, function(data) {
-                console.log(data);
-                //TODO: Unsuccessful signing up...
-            });
+            signUpService.signUp($scope.user)
+                .then(function(response) {
+                    //TODO: Successful signing up...
+                    authService.auth(response.data);
+                    $state.go('home');
+                }, function(response) {
+                    console.log(response);
+                    //TODO: Unsuccessful signing up...
+                });
         }
     }
 })();

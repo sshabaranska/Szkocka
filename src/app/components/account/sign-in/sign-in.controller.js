@@ -12,14 +12,15 @@
         $scope.signIn = function(event) {
             event.preventDefault();
 
-            signInService.signIn($scope.user).then(function(data) {
-                //TODO: Successful signing in...
-                authService.auth(data);
-                $state.go('home');
-            }, function() {
-                console.log(data);
-                //TODO: Unsuccessful signing in...
-            });
+            signInService.signIn($scope.user)
+                .then(function(response) {
+                    //TODO: Successful signing in...
+                    authService.auth(response.data);
+                    $state.go('home');
+                }, function(response) {
+                    console.log(response);
+                    //TODO: Unsuccessful signing in...
+                });
         }
     }
 })();

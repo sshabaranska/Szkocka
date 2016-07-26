@@ -10,6 +10,9 @@
         $stateProvider.state('restricted-area', {
             abstract: true,
             resolve: {
+                $q: '$q',
+                $timeout: '$timeout',
+                $state: '$state',
                 authService: 'authService',
                 authResolver: authResolver
             },
@@ -22,8 +25,19 @@
     }
 
     /* ngInject */
-    function authResolver(authService) {
-        console.log(authService.isAuth());
-        return authService.isAuth();
+    function authResolver($q, $timeout, $state, authService) {
+        //TODO: Should be refactored... It must be much simpler...
+        var deferred = $q.defer();
+
+        if (authService.isAuth()) {
+            deferred.resolve();
+        } else {
+            $timeout(function() {
+                $state.go('sign-in');
+            });
+            deferred.reject();
+        }
+
+        return deferred.promise;
     }
 })();
