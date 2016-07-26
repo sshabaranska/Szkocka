@@ -16,6 +16,7 @@ angular
         'account',
         'home',
         'news',
+        'profile',
         'projects',
 
         'templates'
