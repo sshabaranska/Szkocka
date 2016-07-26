@@ -8,6 +8,5 @@
     /* ngInject */
     function NavigationBarController($scope, $rootScope) {
         $scope.signOut = $rootScope.signOut;
-        console.log($scope.showAuth);
     }
 })();

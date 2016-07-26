@@ -13,8 +13,6 @@
         function signUp(event) {
             event.preventDefault();
 
-
-            console.log($scope.user);
             signUpService.signUp($scope.user)
                 .then(function(response) {
                     //TODO: Successful signing up...
