@@ -9,7 +9,7 @@
     function config($stateProvider) {
         $stateProvider.state('home', {
             url: '^/',
-            parent: 'restricted-area',
+            parent: 'free-area',
             views: {
                 content: {
                     templateUrl: 'components/home/home.html',

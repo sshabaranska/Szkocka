@@ -15,7 +15,7 @@
             signInService.signIn($scope.user)
                 .then(function(response) {
                     //TODO: Successful signing in...
-                    authService.auth(response.data);
+                    authService.auth(response.data.token);
                     $state.go('home');
                 }, function(response) {
                     console.log(response);

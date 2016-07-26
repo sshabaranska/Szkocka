@@ -9,7 +9,7 @@
     function HomeController($scope, projectsService) {
         projectsService.getProjects()
             .then(function(data) {
-                console.log(data);
+                //console.log(data);
             }, function() {
 
             });

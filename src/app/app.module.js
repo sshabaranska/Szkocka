@@ -1,6 +1,7 @@
 angular
     .module('app', [
         //inject here angular modules
+        'ngCookies',
         'ui.router',
 
         'mock',

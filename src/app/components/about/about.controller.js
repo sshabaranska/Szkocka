@@ -8,6 +8,5 @@
     /* ngInject */
     function AboutController($scope, AboutContentResolver) {
         //TODO: About page: show content from AboutContentResolver
-        console.log('test about');
     }
 })();

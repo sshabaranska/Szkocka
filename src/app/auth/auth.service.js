@@ -4,8 +4,8 @@
         .factory('authService', authService);
 
     /* ngInject */
-    function authService($q) {
-        var activeToken = false;
+    function authService($cookies) {
+        var isAuthorized = false;
 
         return {
             auth: auth,
@@ -13,19 +13,18 @@
             isAuth: isAuth
         };
 
-        function auth(data) {
-            activeToken = data.token;
-            console.log(activeToken);
-            //TODO: Store token to localStorage or cookies...
+        function auth(token) {
+            isAuthorized = true;
+            $cookies.put('token', token);
         }
 
         function unAuth() {
-            activeToken = false;
-            //TODO: Remove token from localStorage or cookies...
+            isAuthorized = false;
+            $cookies.remove('token');
         }
 
         function isAuth() {
-            return !!activeToken;
+            return isAuthorized;
         }
     }
 })();
