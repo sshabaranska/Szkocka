@@ -18,7 +18,7 @@
             signUpService.signUp($scope.user)
                 .then(function(response) {
                     //TODO: Successful signing up...
-                    authService.auth(response.data);
+                    authService.auth(response.data.token);
                     $state.go('home');
                 }, function(response) {
                     console.log(response);
