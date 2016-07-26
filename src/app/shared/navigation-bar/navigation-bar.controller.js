@@ -6,7 +6,8 @@
         .controller('NavigationBarController', NavigationBarController);
 
     /* ngInject */
-    function NavigationBarController($scope) {
-
+    function NavigationBarController($scope, $rootScope) {
+        $scope.signOut = $rootScope.signOut;
+        console.log($scope.showAuth);
     }
 })();

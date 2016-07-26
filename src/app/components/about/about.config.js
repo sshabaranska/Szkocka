@@ -9,7 +9,7 @@
     function config($stateProvider) {
         $stateProvider.state('about', {
             url: '^/about',
-            parent: 'restricted-area',
+            parent: 'free-area',
             resolve: {
                 aboutService: 'aboutService',
                 AboutContentResolver: AboutContentResolver

@@ -23,7 +23,7 @@
             </ul>
 
             <div class="right-part">
-                <div class="free-area">
+                <div class="free-area" ng-if="showAuth">
                     <ul class="right-part nav navbar-nav navbar-right">
                         <li ui-sref-active="active">
                             <a ui-sref="sign-in">Sign in</a>
@@ -34,7 +34,7 @@
                     </ul>
                 </div>
 
-                <div class="restricted-area">
+                <div class="restricted-area" ng-if="!showAuth">
                     <ul class="right-part nav navbar-nav navbar-right">
                         <li ui-sref-active="active">
                             <a ui-sref="projects">My projecfts</a>

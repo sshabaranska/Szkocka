@@ -9,7 +9,7 @@
     function config($stateProvider) {
         $stateProvider.state('sign-in', {
             url: '^/sign-in',
-            parent: 'free-area',
+            parent: 'auth-area',
             views: {
                 content: {
                     templateUrl: 'components/account/sign-in/sign-in.html',

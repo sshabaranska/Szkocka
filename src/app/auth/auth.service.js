@@ -15,7 +15,7 @@
 
         function auth(token) {
             isAuthorized = true;
-            $cookies.set('token', token);
+            $cookies.put('token', token);
         }
 
         function unAuth() {
