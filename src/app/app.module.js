@@ -4,6 +4,8 @@ angular
         'ngCookies',
         'ui.router',
 
+        'kendo.directives',
+        'lazy-scroll',
         'mock',
 
         'auth',

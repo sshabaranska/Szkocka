@@ -18,6 +18,8 @@ module.exports = function() {
                 ],
             templates: 'src/app/**/*.html',
             vendors: [
+                // Kendo UI requires jQuery to be included before AngularJS
+                'node_modules/jquery/dist/jquery.min.js',
                 'node_modules/angular/angular.js',
                 'node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'node_modules/angular-cookies/angular-cookies.js',
@@ -27,12 +29,12 @@ module.exports = function() {
                 'node_modules/angular-sanitize/angular-sanitize.js',
                 'node_modules/angular-ui-router/release/angular-ui-router.js',
                 'node_modules/angular-mocks/angular-mocks.js',
-                'node_modules/jquery/dist/jquery.min.js',
                 'node_modules/lodash/lodash.min.js',
                 'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
                 'node_modules/ng-tags-input/build/ng-tags-input.min.js',
                 'src/assets/lib/**/*.js'
-            ]
+            ],
+            kendoSprite: 'src/assets/lib/kendo/css/Default/sprite.png'
         },
         dev: {
             index: 'dev',
@@ -42,7 +44,8 @@ module.exports = function() {
             images: 'dev/images',
             fonts: 'dev/fonts',
             templates: 'dev/app',
-            vendors: 'dev/vendor'
+            vendors: 'dev/vendor',
+            kendoSprite: 'dev/stylesheets/Default'
         },
         release: {
             index: 'release',
@@ -51,7 +54,8 @@ module.exports = function() {
             images: 'release/img',
             fonts: 'release/fonts',
             templates: 'release/layout',
-            vendors: 'release/vendor'
+            vendors: 'release/vendor',
+            kendoSprite: 'dev/stylesheets/Default'
         }
     };
 };

@@ -27,7 +27,8 @@ function compile() {
     return eventStream.merge(
         buildIndex(),
         buildImages(),
-        buildFonts()
+        buildFonts(),
+        buildKendoSprite()
     );
 }
 
@@ -76,4 +77,9 @@ function buildStyles() {
         .pipe(less())
         .pipe(concat('app.css'))
         .pipe(gulp.dest(destination.stylesheets));
+}
+
+function buildKendoSprite() {
+    return gulp.src(config.sources.kendoSprite)
+        .pipe(gulp.dest(destination.kendoSprite));
 }
