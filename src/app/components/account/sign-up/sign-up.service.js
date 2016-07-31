@@ -6,14 +6,31 @@
         .factory('signUpService', signUpService);
 
     /* ngInject */
-    function signUpService($http, API_URL) {
+    function signUpService($http, $rootScope, API_URL, authService, Assert, Type) {
         return {
-            signUp: signUp
-        };
+            /**
+             * Create a new user
+             * public
+             * @param  {Object}   user     - user info
+             * @param  {Function} callback - optional
+             * @return {Promise}
+             */
+            signUp: function(user, callback) {
+                Assert.isObject(user, 'Invalid "user" type');
 
-        function signUp(data) {
-            //TODO: Set sign-up uri
-            return $http.post(API_URL + 'auth/register', data);
-        }
+                var cb = callback || angular.noop;
+
+                $http.post(API_URL + 'users', user)
+                .then(
+                    function(response) {
+                        authService.auth(response.data.token, callback);
+                        //callback(null, response);
+                    },
+                    function(err) {
+                        $rootScope.signOut();
+                        callback(err, null);
+                    });
+            }
+        };
     }
 })();

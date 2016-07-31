@@ -6,22 +6,30 @@
         .controller('SignUpController', SignUpController);
 
     /* ngInject */
-    function SignUpController($scope, $state, signUpService, authService) {
+    function SignUpController($scope, $state, signUpService, Type, Assert) {
+        /** @public {Object} */
         $scope.user = {};
-        $scope.signUp = signUp;
+        /** @public {Object} */
+        $scope.errors = {};
 
-        function signUp(event) {
+        /**
+         * @public
+         * @param {Object} event
+         */
+        $scope.signUp = function (event) {
+            Assert.isObject(event, 'Invalid "event" type');
+
             event.preventDefault();
 
-            signUpService.signUp($scope.user)
-                .then(function(response) {
-                    //TODO: Successful signing up...
-                    authService.auth(response.data.token);
+            signUpService.signUp($scope.user, function(err, res) {
+                if (Type.isObject(err)) {
+                    $scope.errors.other = err.message;
+                    console.log(err.message);
+                    return;
+                } else {
                     $state.go('home');
-                }, function(response) {
-                    console.log(response);
-                    //TODO: Unsuccessful signing up...
-                });
+                }
+            });
         }
     }
 })();

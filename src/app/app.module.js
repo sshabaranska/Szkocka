@@ -6,7 +6,7 @@ angular
 
         'kendo.directives',
         'lazy-scroll',
-        'mock',
+        //'mock',
 
         'auth',
         'layouts',

@@ -36,7 +36,7 @@
              * @param {*} value
              * @return {boolean}
              */
-            isArray: Type._nativeIsArray || Type._customIsArray,
+            isArray: this._nativeIsArray || this._customIsArray,
 
             /**
              * Check the value is boolean.
@@ -99,7 +99,7 @@
              */
             isObject: function(value) {
                 // Yikes, "typeof null" yields 'object'
-                return typeof value === 'object' && !Type.isNull(value);
+                return typeof value === 'object' && !this.isNull(value);
             },
 
             /**

@@ -6,13 +6,30 @@
         .factory('signInService', signInService);
 
     /* ngInject */
-    function signInService($http, API_URL) {
+    function signInService($http, API_URL, authService, Assert) {
         return {
-            signIn: signIn
-        };
+            /**
+             * Create a new user
+             * public
+             * @param  {Object}   user     - user info
+             * @param  {Function} callback - optional
+             * @return {Promise}
+             */
+            signIn: function(user, callback) {
+                Assert.isObject(user, 'Invalid "user" type');
 
-        function signIn(data) {
-            return $http.post(API_URL + 'auth/local', data);
-        }
+                var cb = callback || angular.noop;
+
+                $http.post(API_URL + 'auth/local', user)
+                .then(
+                    function(response) {
+                        authService.auth(response.data.token, callback);
+                    },
+                    function(err) {
+                        $rootScope.signOut();
+                        callback(err, null);
+                    });
+            }
+        };
     }
 })();

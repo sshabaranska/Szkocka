@@ -6,7 +6,7 @@
 
     angular
         .module('utils')
-        .factory('assertService', assertService);
+        .factory('Assert', assertService);
 
     /* ngInject */
     function assertService(Type) {
