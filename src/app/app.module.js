@@ -3,6 +3,7 @@ angular
         //inject here angular modules
         'ngCookies',
         'ui.router',
+        'ngMessages',
 
         'kendo.directives',
         'lazy-scroll',

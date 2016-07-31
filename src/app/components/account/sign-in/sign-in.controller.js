@@ -15,11 +15,17 @@
         /**
          * @public
          * @param {Object} event
+         * @param {Boolean} valid
          */
-        $scope.signIn = function (event) {
+        $scope.signIn = function (valid, event) {
             Assert.isObject(event, 'Invalid "event" type');
 
             event.preventDefault();
+
+            if (!valid) {
+                $scope.error = 'Form is not valid';
+                return;
+            }
 
             signInService.signIn($scope.user, function(err, res) {
                 if (Type.isObject(err)) {
