@@ -26,15 +26,13 @@
                 $scope.errors.valid = 'Form is not valid';
                 return;
             }
-            signUpService.signUp($scope.user, function(err, res) {
-                if (Type.isObject(err)) {
-                    $scope.errors.other = err.message;
-                    console.log(err.message);
-                    return;
-                } else {
-                    $state.go('home');
-                }
-            });
-        }
+            signUpService.signUp($scope.user)
+                .then(function(){
+                        $state.go('home');
+                    }, function(err){
+                        $scope.errors.other = err.message;
+                        console.log(err.message);
+                    });
+            }
     }
 })();

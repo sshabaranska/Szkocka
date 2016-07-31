@@ -4,7 +4,7 @@
         .factory('authService', authService);
 
     /* ngInject */
-    function authService($cookies, userService, CacheStore, Assert) {
+    function authService($cookies, CacheStore, Assert) {
 
         var isAuthorized = false;
 
@@ -12,20 +12,12 @@
             /**
              * public
              * param {String} token
-             * param {Function} callback
              */
-            auth: function (token, callback) {
+            auth: function (token) {
                 Assert.isString(token, 'Invalid "token" type');
-                Assert.isFunction(callback, 'Invalid "callback" type');
 
                 isAuthorized = true;
                 $cookies.put('token', token);
-                userService.init(token)
-                    .then(function(res){
-                        callback(null, res);
-                    }, function(err) {
-                        callback(err, null);
-                    });
             },
 
             /**

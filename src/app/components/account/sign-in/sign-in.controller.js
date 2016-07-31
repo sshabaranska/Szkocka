@@ -6,7 +6,7 @@
         .controller('SignInController', SignInController);
 
     /* ngInject */
-    function SignInController($scope, $state, signInService, authService, Assert, Type) {
+    function SignInController($scope, $state, signInService, Assert, Type) {
         /** @public {Object} */
         $scope.user = {};
         /** @public {String} */
@@ -27,15 +27,13 @@
                 return;
             }
 
-            signInService.signIn($scope.user, function(err, res) {
-                if (Type.isObject(err)) {
+            signInService.signIn($scope.user)
+                .then(function(){
+                    $state.go('home');
+                }, function(err){
                     $scope.error = err.message;
                     console.log(err.message);
-                    return;
-                } else {
-                    $state.go('home');
-                }
-            });
+                });
         };
     }
 })();
