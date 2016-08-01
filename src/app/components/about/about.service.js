@@ -15,7 +15,7 @@
              * @return {Promise}
              */
             getContent: function() {
-                return $q.resolve($http.get(API_URL + 'pages/about'));
+                return $http.get(API_URL + 'pages/about');
             },
 
             /**
@@ -26,7 +26,7 @@
                 Assert.isObject(params, 'Invalid "params" type');
                 Assert.isString(params.content, 'Invalid "params.content" type');
 
-                return $q.resolve($http.post(API_URL + 'pages/about', params));
+                return $http.post(API_URL + 'pages/about', params);
             }
         };
     }
