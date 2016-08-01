@@ -16,7 +16,7 @@
              */
             signIn: function(user) {
                 Assert.isObject(user, 'Invalid "user" type');
-
+                //return $q.resolve($http.post(API_URL + 'auth/local', user));
                 var deferred = $q.defer();
 
                 $http.post(API_URL + 'auth/local', user)

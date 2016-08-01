@@ -6,15 +6,28 @@
         .factory('aboutService', aboutService);
 
     /* ngInject */
-    function aboutService($q, $http) {
+    function aboutService($q, $http, API_URL, Assert) {
         return {
-            getContent: getContent
-        };
 
-        function getContent() {
-            //TODO: Insert real about end-point...
-            return $q.resolve('some about content');
-            //return $http.get('where/is/about/end-point');
-        }
+            /**
+             * Get "About" information
+             * public
+             * @return {Promise}
+             */
+            getContent: function() {
+                return $q.resolve($http.get(API_URL + 'pages/about'));
+            },
+
+            /**
+             * @public
+             * @param {Object} params
+             */
+            updateAboutInfo: function(params) {
+                Assert.isObject(params, 'Invalid "params" type');
+                Assert.isString(params.content, 'Invalid "params.content" type');
+
+                return $q.resolve($http.post(API_URL + 'pages/about', params));
+            }
+        };
     }
 })();

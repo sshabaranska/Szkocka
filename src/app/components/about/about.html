@@ -7,6 +7,8 @@
             	</button>
             	About
             </h1>
+            <p class="text-danger">{{errorMsg}}</p>
+            <p class="text-success">{{successMsg}}</p>
             <p ng-if="!showEditableTexarea" ng-bind-html="aboutProject.currentDescription"></p>
             <div ng-if="showEditableTexarea" class="add-margin-bottom">
                 <textarea kendo-editor k-ng-model="aboutProject.newDescription"></textarea>
