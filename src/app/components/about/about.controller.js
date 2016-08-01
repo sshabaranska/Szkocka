@@ -6,10 +6,9 @@
         .controller('AboutController', AboutController);
 
     /* ngInject */
-    function AboutController($scope, AboutContentResolver, aboutService, userService, Assert, Type) {
+    function AboutController($scope, AboutContentResolver, aboutService, userService) {
     	/** @public {Boolean} */
-        //$scope.showEditButton = userService.isAdmin();
-        $scope.showEditButton = true;
+        $scope.showEditButton = userService.isAdmin();
         /** @public {Object} */
         $scope.aboutProject = {
             currentDescription: AboutContentResolver.data.content,
