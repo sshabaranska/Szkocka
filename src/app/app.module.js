@@ -4,6 +4,7 @@ angular
         'ngCookies',
         'ui.router',
         'ngMessages',
+        'ngSanitize',
 
         'kendo.directives',
         'lazy-scroll',

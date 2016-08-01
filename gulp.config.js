@@ -19,7 +19,7 @@ module.exports = function() {
             templates: 'src/app/**/*.html',
             vendors: [
                 // Kendo UI requires jQuery to be included before AngularJS
-                'node_modules/jquery/dist/jquery.min.js',
+                'node_modules/jquery/dist/jquery.js',
                 'node_modules/angular/angular.js',
                 'node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'node_modules/angular-cookies/angular-cookies.js',
