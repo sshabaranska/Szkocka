@@ -6,16 +6,16 @@
         .controller('NewsController', NewsController);
 
     /* ngInject */
-    function NewsController($scope, News, newsService, userService, Upload,
+    function NewsController($scope, newsService, userService, Upload,
     LOAD_LIMIT, API_URL, Assert, Type) {
         /** @public {Boolean} */
         $scope.showAddButton = userService.isAdmin();
 
         /** @public {Array<Object>} */
-        $scope.news = News.data.news;
+        $scope.news = [];
 
         /** @private {String} */
-        $scope.cursor = News.data.cursor;
+        $scope.cursor = null;
 
         /** @public {Object} */
         $scope.newsToAdd = {};
@@ -37,31 +37,40 @@
          */
         $scope.loadMore = function() {
             if($scope.loadMoreAvailable) {
-            	$scope.errorMsg = null;
-
-                newsService.getNews($scope.cursor)
-                	.then(function(res){
-                		if ($scope.cursor === res.data.cursor) {
-	                        return;
-	                    }
-	                    if (res.data.news.length < LOAD_LIMIT) {
-	                        $scope.loadMoreAvailable = false;
-	                    }
-	                    $scope.cursor = res.data.cursor;
-
-	                    res.data.news.forEach(function(el) {
-	                        // create view object
-	                        var tmpObj = {};
-	                        tmpObj.viewNews = el;
-	                        tmpObj.showMore = true;
-
-	                        $scope.news.push(tmpObj);
-	                    });
-                	}, function(err) {
-                		$scope.errorMsg = 'Error: Page was not loaded';
-                    	$scope.loadMoreAvailable = false;
-                	});
+                $scope._init();
             }
+        };
+
+        /**
+         * @public
+         */
+        $scope._init = function() {
+
+            $scope.errorMsg = null;
+
+            newsService.getNews($scope.cursor)
+                .then(function(res){
+                    if ($scope.cursor === res.data.cursor) {
+                        return;
+                    }
+                    if (res.data.news.length < LOAD_LIMIT) {
+                        $scope.loadMoreAvailable = false;
+                    }
+                    $scope.cursor = res.data.cursor;
+
+                    res.data.news.forEach(function(el) {
+                        // create view object
+                        var tmpObj = {};
+                        tmpObj.viewNews = el;
+                        tmpObj.showMore = true;
+
+                        $scope.news.push(tmpObj);
+                    });
+                }, function(err) {
+                    $scope.errorMsg = 'Error: Page was not loaded';
+                    $scope.loadMoreAvailable = false;
+                });
+
         };
 
         /**
@@ -102,17 +111,17 @@
             }
 
             NewsService.createNews($scope.newsToAdd)
-				.then(function(res) {
-					$scope.showAddButton = true;
+                .then(function(res) {
+                    $scope.showAddButton = true;
                     $scope.addNewsSection = false;
                     $scope.newsToAdd = {};
                     $scope.news = [];
                     $scope.cursor = null;
                     $scope.loadMoreAvailable = true;
-                    $scope.loadMore();
-				}, function(err) {
-					$scope.errorMsg = 'Failed to create';
-				});
+                    $scope._init();
+                }, function(err) {
+                    $scope.errorMsg = 'Failed to create';
+                });
         };
 
         /**
@@ -162,5 +171,7 @@
                 return 'long-decsr';
             }
         };
+
+        $scope._init();
     }
 })();

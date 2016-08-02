@@ -17,7 +17,7 @@
                 /** @private {String} */
                 var query = '';
 
-                if (!Type.isNull(cursor)) {
+                if (Type.isString(cursor)) {
                     query = '?cursor=' + cursor;
                 }
                 return $http.get(API_URL + 'news' + query);

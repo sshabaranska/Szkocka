@@ -5,6 +5,9 @@ angular
         'ui.router',
         'ngMessages',
         'ngSanitize',
+        'ngFileUpload',
+        'ngTagsInput',
+        'angularMoment',
 
         'kendo.directives',
         'lazy-scroll',
@@ -15,7 +18,6 @@ angular
         'shared',
 
         //inject here your components
-
         'about',
         'account',
         'home',
