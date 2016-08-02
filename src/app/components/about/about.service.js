@@ -8,19 +8,26 @@
     /* ngInject */
     function aboutService($http, API_URL, Assert) {
         return {
-            get: get,
-            update: update
+
+            /**
+             * public
+             * @return {Promise}
+             */
+            get: function() {
+                return $http.get(API_URL + 'pages/about');
+            },
+
+            /**
+             * @public
+             * @param {Object} params
+             * @return {Promise}
+             */
+            update: function(params) {
+                Assert.isObject(params, 'Invalid "params" type');
+                Assert.isString(params.content, 'Invalid "params.content" type');
+
+                return $http.post(API_URL + 'pages/about', params);
+            }
         };
-
-        function get() {
-            return $http.get(API_URL + 'pages/about');
-        }
-
-        function update(params) {
-            Assert.isObject(params, 'Invalid "params" type');
-            Assert.isString(params.content, 'Invalid "params.content" type');
-
-            return $http.post(API_URL + 'pages/about', params);
-        }
     }
 })();
