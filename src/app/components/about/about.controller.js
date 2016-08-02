@@ -6,54 +6,37 @@
         .controller('AboutController', AboutController);
 
     /* ngInject */
-    function AboutController($scope, AboutContentResolver, aboutService, userService) {
-    	/** @public {Boolean} */
+    function AboutController($scope, aboutService, userService, AboutContentResolver) {
         $scope.showEditButton = userService.isAdmin();
-        /** @public {Object} */
-        $scope.aboutProject = {
-            currentDescription: AboutContentResolver.data.content,
-            newDescription: AboutContentResolver.data.content
-        };
-        /** @public {String} */
-        $scope.errorMsg = '';
-        /** @public {String} */
-        $scope.successMsg = '';
-        /** @public {Boolean} */
+        $scope.description = AboutContentResolver.data.content;
+        $scope.editedDescription = $scope.description;
         $scope.showEditableTexarea = false;
 
-        /**
-         * @public
-         */
-        $scope.updateAbout = function() {
-            var params = {
-                content: $scope.aboutProject.newDescription
-            };
+        $scope.save = save;
+        $scope.edit = edit;
+        $scope.cancel = cancel;
 
-            aboutService.updateAboutInfo(params)
-	            .then(function(response){
-	                    $scope.aboutProject.currentDescription = $scope.aboutProject.newDescription;
-	                    $scope.successMsg = 'Saved';
+
+        function save() {
+            aboutService.update({
+                    content: $scope.editedDescription
+                }).then(function(response){
+	                    $scope.description = $scope.editedDescription;
 	                    $scope.showEditableTexarea = false;
-	                }, function(err){
-	                    $scope.errorMsg = 'Error';
-	                    console.log(err.message);
+                        //TODO: Show success message in some dialog window or toast
+                        console.log('Saved...');
+	                }, function(error){
+                        //TODO: Show server error in some dialog window or toast
+                        console.log(error.message);
 	                });
-        };
+        }
 
-        /**
-         * @public
-         */
-        $scope.edit = function() {
-              $scope.errorMsg = '';
-              $scope.successMsg = '';
+        function edit() {
               $scope.showEditableTexarea = true;
-        };
+        }
 
-        /**
-         * @public
-         */
-        $scope.cancel = function() {
+        function cancel() {
             $scope.showEditableTexarea = false;
-        };
+        }
     }
 })();
