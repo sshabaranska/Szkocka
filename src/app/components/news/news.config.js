@@ -10,10 +10,10 @@
         $stateProvider.state('news', {
             url: '^/news',
             parent: 'restricted-area',
-            // resolve: {
-            //     aboutService: 'newsService',
-            //     News: NewsResolver
-            // },
+            resolve: {
+                newsService: 'newsService',
+                News: NewsResolver
+            },
             templateUrl: 'components/news/news.html',
             controller: 'NewsController'
         });
@@ -21,6 +21,6 @@
 
     /* ngInject */
     function NewsResolver(newsService) {
-        return newsService.getContent();
+        return newsService.getNews();
     }
 })();

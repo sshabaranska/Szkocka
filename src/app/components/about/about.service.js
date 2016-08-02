@@ -14,7 +14,7 @@
              * public
              * @return {Promise}
              */
-            getContent: function() {
+            getAboutInfo: function() {
                 return $http.get(API_URL + 'pages/about');
             },
 

@@ -25,6 +25,6 @@
 
     /* ngInject */
     function AboutContentResolver(aboutService) {
-        return aboutService.getContent();
+        return aboutService.getAboutInfo();
     }
 })();
