@@ -6,7 +6,7 @@
         .factory('aboutService', aboutService);
 
     /* ngInject */
-    function aboutService($q, $http, API_URL, Assert) {
+    function aboutService($http, API_URL, Assert) {
         return {
 
             /**
@@ -21,6 +21,7 @@
             /**
              * @public
              * @param {Object} params
+             * @return {Promise}
              */
             updateAboutInfo: function(params) {
                 Assert.isObject(params, 'Invalid "params" type');
