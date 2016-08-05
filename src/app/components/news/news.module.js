@@ -1,4 +1,4 @@
 angular
     .module('news', [
-    		'news-edit'
+    		'news.edit'
     	]);

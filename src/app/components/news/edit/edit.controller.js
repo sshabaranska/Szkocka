@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('news-edit')
+        .module('news.edit')
         .controller('NewsEditController', NewsEditController);
 
     /* ngInject */

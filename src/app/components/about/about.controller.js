@@ -6,8 +6,8 @@
         .controller('AboutController', AboutController);
 
     /* ngInject */
-    function AboutController($scope, aboutService, userService, AboutContentResolver) {
-        $scope.showEditButton = userService.isAdmin();
+    function AboutController($scope, aboutService, accountService, AboutContentResolver) {
+        $scope.showEditButton = accountService.isAdmin();
         $scope.description = AboutContentResolver.data.content;
         $scope.editedDescription = $scope.description;
         $scope.showEditableTexarea = false;
