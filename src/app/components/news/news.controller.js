@@ -6,29 +6,17 @@
         .controller('NewsController', NewsController);
 
     /* ngInject */
-    function NewsController($scope, newsService, userService, Upload,
-    LOAD_LIMIT, API_URL, Assert, Type) {
+    function NewsController($scope, $state, newsService, accountService, LOAD_LIMIT, Assert, Type) {
         /** @public {Boolean} */
-        $scope.showAddButton = userService.isAdmin();
-
+        $scope.showAddButton = accountService.isAdmin();
         /** @public {Array<Object>} */
         $scope.news = [];
-
         /** @private {String} */
         $scope.cursor = null;
-
-        /** @public {Object} */
-        $scope.newsToAdd = {};
-
         /** @public {Boolean} */
         $scope.showMore = true;
-
-        /** @public {Boolean} */
-        $scope.addNewsSection = false;
-
         /** @private {Boolean} */
         $scope.loadMoreAvailable = true;
-
         /** @public {String} */
         $scope.errorMsg = null;
 
@@ -45,10 +33,8 @@
          * @public
          */
         $scope._init = function() {
-
             $scope.errorMsg = null;
-
-            newsService.getNews($scope.cursor)
+            newsService.get($scope.cursor)
                 .then(function(res){
                     if ($scope.cursor === res.data.cursor) {
                         return;
@@ -95,67 +81,7 @@
          * @public
          */
         $scope.addNews = function() {
-            $scope.showAddButton = false;
-            $scope.addNewsSection = true;
-        };
-
-        /**
-         * @public
-         */
-        $scope.save = function() {
-
-            if (Type.isUndefined($scope.newsToAdd.title) || $scope.newsToAdd.title == '' ||
-                Type.isUndefined($scope.newsToAdd.body) || $scope.newsToAdd.body == '') {
-                $scope.errorMsg = 'Required field';
-                return;
-            }
-
-            NewsService.createNews($scope.newsToAdd)
-                .then(function(res) {
-                    $scope.showAddButton = true;
-                    $scope.addNewsSection = false;
-                    $scope.newsToAdd = {};
-                    $scope.news = [];
-                    $scope.cursor = null;
-                    $scope.loadMoreAvailable = true;
-                    $scope._init();
-                }, function(err) {
-                    $scope.errorMsg = 'Failed to create';
-                });
-        };
-
-        /**
-         * @public
-         */
-        $scope.cancel = function() {
-            $scope.showAddButton = true;
-            $scope.addNewsSection = false;
-            $scope.errorMsg = null;
-        };
-
-        /**
-         * @public
-         * @param {Object} event
-         */
-        $scope.onFileSelect = function(event) {
-            Assert.isObject(event, 'Invalid "event" type');
-
-            var image = event.target.files[0];
-            
-            if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
-                alert('Only PNG and JPEG are accepted.');
-                return;
-            }
-
-            $scope.upload = Upload.upload({
-                url: API_URL + 'upload',
-                method: 'POST',
-                file: image
-            }).success(function(data, status, headers, config) {
-                $scope.newsToAdd.image_url = data.url;
-            }).error(function(err) {
-                console.log('Error uploading file: ' + err.message || err);
-            });
+            $state.go('news-edit');
         };
 
         /**

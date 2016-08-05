@@ -4,7 +4,7 @@
         .factory('authInterceptorService', authInterceptorService);
 
     /* ngInject */
-    function authInterceptorService($q, $timeout, $rootScope) {
+    function authInterceptorService($q, $timeout, $rootScope, $cookies) {
         return {
             responseError: responseError
         };
@@ -16,6 +16,6 @@
                 });
             }
             return $q.reject(response);
-        }
+        };
     }
 })();

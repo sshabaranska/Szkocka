@@ -1,2 +1,4 @@
 angular
-    .module('news', []);
+    .module('news', [
+    		'news-edit'
+    	]);
