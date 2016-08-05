@@ -4,26 +4,18 @@
         .factory('authInterceptorService', authInterceptorService);
 
     /* ngInject */
-    function authInterceptorService($q, $timeout, $rootScope, $cookies) {
+    function authInterceptorService($q, $timeout, $rootScope) {
         return {
-            // Add authorization token to headers
-            request: function (config) {
-                config.headers = config.headers || {};
+            responseError: responseError
+        };
 
-                if (config.url && config.url.indexOf('http') !== -1 && $cookies.get('token')) {
-                    config.headers.Authorization = 'Bearer ' + $cookies.get('token');
-                }
-                return config;
-            },
-            // Intercept 401s and redirect you to login
-            responseError: function(response) {
-                if (response.status === 401) {
-                    $timeout(function() {
-                        $rootScope.signOut();
-                    });
-                }
-                return $q.reject(response);
+        function responseError(response) {
+            if (response.status === 401) {
+                $timeout(function() {
+                    $rootScope.signOut();
+                });
             }
+            return $q.reject(response);
         }
     }
 })();

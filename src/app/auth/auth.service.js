@@ -4,38 +4,30 @@
         .factory('authService', authService);
 
     /* ngInject */
-    function authService($cookies, CacheStore, Assert) {
-
+    function authService($http, $cookies, CacheStore, Assert) {
         var isAuthorized = false;
-
         return {
-            /**
-             * public
-             * param {String} token
-             */
-            auth: function (token) {
-                Assert.isString(token, 'Invalid "token" type');
-
-                isAuthorized = true;
-                $cookies.put('token', token);
-            },
-
-            /**
-             * public
-             */
-            unAuth: function() {
-                isAuthorized = false;
-                $cookies.remove('token');
-                CacheStore.clear();
-            },
-
-            /**
-             * public
-             * return {Boolean}
-             */
-            isAuth: function() {
-                return isAuthorized;
-            }
+            auth: auth,
+            unAuth: unAuth,
+            isAuth: isAuth
         };
+
+        function auth(token) {
+            Assert.isString(token, 'Invalid "token" type');
+            isAuthorized = true;
+            $cookies.put('token', token);
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + $cookies.get('token');
+        }
+
+        function unAuth() {
+            isAuthorized = false;
+            $cookies.remove('token');
+            CacheStore.clear();
+            $http.defaults.headers.common['Authorization'] = '';
+        }
+
+        function isAuth() {
+            return isAuthorized;
+        }
     }
 })();
