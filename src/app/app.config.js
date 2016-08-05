@@ -8,7 +8,6 @@
     /* ngInject */
     function config($urlRouterProvider, $httpProvider) {
         $urlRouterProvider.otherwise('/');
-
         $httpProvider.interceptors.push('authInterceptorService');
     }
 })();

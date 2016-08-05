@@ -25,19 +25,7 @@
     }
 
     /* ngInject */
-    function authResolver($q, $timeout, $state, authService) {
-        //TODO: Should be refactored... It must be much simpler...
-        var deferred = $q.defer();
-
-        if (authService.isAuth()) {
-            deferred.resolve();
-        } else {
-            $timeout(function() {
-                $state.go('sign-in');
-            });
-            deferred.reject();
-        }
-
-        return deferred.promise;
+    function authResolver(accountService) {
+        return accountService.get();
     }
 })();
