@@ -3,19 +3,21 @@
         <div class="col-sm-12">
             <h1 class="page-header">Add News:</h1>
         </div>
+        <p class="text-danger">{{errorMsg}}</p>
         <div class="col-sm-12">
-            <form class="form">
+            <form class="form" ng-submit="save(newsForm.$valid)" name="newsForm" novalidate>
 
                 <div class="form-group">
                     <label>Title<span class="text-danger">*</span></label>
-                    <input type="text" name="name" class="form-control" ng-model="newsToAdd.title"/>
-                    <small class="text-danger">{{errorMsg}}</small>
+                    <input type="text" name="title" class="form-control" ng-model="newsToAdd.title" required/>
+                    <div class="help-block" ng-messages="newsForm.title.$error" ng-if="newsForm.title.$touched">
+                        <p ng-message="required">This field is required</p>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Body<span class="text-danger">*</span></label>
                     <textarea kendo-editor k-ng-model="newsToAdd.body"></textarea>
-                    <small class="text-danger">{{errorMsg}}</small>
                 </div>
 
                 <div class="form-group">
@@ -25,7 +27,7 @@
                     <img class="preview" ng-src="{{newsToAdd.image_url}}"> 
                 </div>
 
-                <button class="btn btn-primary" ng-click="save()">Save</button>
+                <button class="btn btn-primary" type="submit">Save</button>
                 <button class="btn btn-default" ng-click="cancel()">Cancel</button>
             </form>
         </div>

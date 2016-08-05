@@ -15,10 +15,10 @@
         /**
          * @public
          */
-        $scope.save = function() {
-            if (Type.isUndefined($scope.newsToAdd.title) || $scope.newsToAdd.title == '' ||
-                Type.isUndefined($scope.newsToAdd.body) || $scope.newsToAdd.body == '') {
-                $scope.errorMsg = 'Required field';
+        $scope.save = function(valid) {
+            if (!valid || Type.isUndefined($scope.newsToAdd.body) ||
+                $scope.newsToAdd.body == '') {
+                $scope.errorMsg = 'Form is not valid';
                 return;
             }
 
