@@ -2,14 +2,18 @@
     'use strict';
 
     angular
-        .module('update')
+        .module('project-update')
         .config(config);
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state('update', {
-            url: '^/update',
+        $stateProvider.state('project-update', {
+            url: '^/project-update/:id',
             parent: 'restricted-area',
+            resolve: {
+                projectsService: 'projectsService',
+                UpdateResolver: UpdateResolver
+            },
             views: {
                 content: {
                     templateUrl: 'components/projects/update/update.html',
@@ -17,5 +21,10 @@
                 }
             }
         });
+    }
+
+    /* ngInject */
+    function UpdateResolver(projectsService, $stateParams) {
+        return projectsService.getProjectById($stateParams.id);
     }
 })();

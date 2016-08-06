@@ -11,8 +11,7 @@
             getTags: getTags,
             query: query,
             getProjectById: getProjectById,
-            createNewProject: createNewProject,
-            updateProject: updateProject,
+            update: update,
             sendInvitation: sendInvitation,
             removeResearcher: removeResearcher,
             getJoinRequests: getJoinRequests,
@@ -72,16 +71,7 @@
          * @public
          * @param {Object} params
          */
-        function createNewProject(params) {
-            Assert.isObject(params, 'Invalid "params" type');
-            return $http.post(API_URL + 'researches', params);
-        };
-
-        /**
-         * @public
-         * @param {Object} params
-         */
-        function updateProject(params) {
+        function update(params) {
             Assert.isObject(params, 'Invalid "params" type');
             return $http.put(API_URL + 'researches/' + params.researchId, params);
         };
@@ -94,6 +84,7 @@
             Assert.isObject(params, 'Invalid "params" type');
             return $http.post(API_URL + 'researches/' + params.researchId + '/invites', params);
         };
+
         /**
          * @public
          * @param {Object} params

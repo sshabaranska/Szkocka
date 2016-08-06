@@ -6,7 +6,7 @@
         .controller('ProjectController', ProjectController);
 
     /* ngInject */
-    function ProjectController($scope, accountService, ProjectResolver, projectsService, Assert, Type) {
+    function ProjectController($scope, $state, accountService, ProjectResolver, projectsService, Assert, Type) {
         /** @private {Object} */
         $scope.project = ProjectResolver.data;
         /** @public {Object} */

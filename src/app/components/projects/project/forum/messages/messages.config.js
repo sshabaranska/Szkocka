@@ -2,14 +2,14 @@
     'use strict';
 
     angular
-        .module('project.forum.messages')
+        .module('project.messages')
         .config(config);
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state('project.forum.messages', {
+        $stateProvider.state('project.messages', {
             url: '/:forumId',
-            parent: 'project.forum',
+            parent: 'project',
             views: {
                 content: {
                     templateUrl: 'components/projects/project/forum/messages/messages.html',

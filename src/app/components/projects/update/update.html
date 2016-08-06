@@ -1,28 +1,25 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h1 ng-if="!newProject" class="page-header">Update Project:</h1>
-            <form class="project-form">
+            <h1 class="page-header">Update Project:</h1>
+            <form class="project-form" ng-submit="update(form.$valid)" name="form" novalidate>
                 <div class="form-group">
                     <label class="control-label">Project Title<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" ng-model="project.title">
-                    <small class="text-danger">{{errors.titleError}}</small>
+                    <input type="text" class="form-control" name="title" ng-model="project.title" required>
+                    <div class="help-block" ng-messages="form.title.$error" ng-if="form.title.$touched">
+                        <p ng-message="required">This field is required</p>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Short Description<span class="text-danger">*</span></label>
-                    <textarea class="form-control" rows="2" style="resize:none" ng-model="project.description.brief"></textarea>
-                    <small class="text-danger">{{errors.shortDescError}}</small>
+                    <textarea class="form-control"  name="brief" rows="2" style="resize:none" ng-model="project.description.brief" required></textarea>
+                    <div class="help-block" ng-messages="form.brief.$error" ng-if="form.brief.$touched">
+                        <p ng-message="required">This field is required</p>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Detailed Description<span class="text-danger">*</span></label>
                     <textarea kendo-editor k-ng-model="project.description.detailed"></textarea>
-                    <small class="text-danger">{{errors.longDescError}}</small>
-                </div>
-                <div class="form-group">
-                    <span class="btn btn-default btn-file">
-                        Upload image <input type="file" class="btn btn-primary" custom-on-change="onFileSelect">
-                    </span>
-                    <img class="preview" ng-src="{{project.image_url}}"> 
                 </div>
                 <div class="form-group">
                     <label for="changeStatus"> Change status: </label>
@@ -40,8 +37,9 @@
                         </li>
                     </ul>
                 </div>
-                <div ng-if="!newProject" class="form-group">
-                    <button type="submit" class="btn btn-primary" ng-click="updateProject()">Update Project</button>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Update Project</button>
                 </div>
             </form>
         </div>

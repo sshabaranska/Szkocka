@@ -2,5 +2,5 @@ angular
     .module('projects', [
         'add',
         'project',
-        'update'
+        'project-update'
     ]);

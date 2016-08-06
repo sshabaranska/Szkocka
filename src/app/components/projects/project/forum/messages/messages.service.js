@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('project.forum.messages')
+        .module('project.messages')
         .factory('messagesService', messagesService);
 
     /* ngInject */
