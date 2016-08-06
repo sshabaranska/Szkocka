@@ -42,7 +42,7 @@
          * @return {Object}
          */
         function getCurrentUser() {
-            return currentUser.user;
+            return currentUser;
         };
 
         /**

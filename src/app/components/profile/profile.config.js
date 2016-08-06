@@ -8,12 +8,8 @@
     /* ngInject */
     function config($stateProvider) {
         $stateProvider.state('profile', {
-            url: '^/profile',
+            url: '^/profile/:id',
             parent: 'restricted-area',
-            resolve: {
-                accountService: 'accountService',
-                ProfileResolver: ProfileResolver
-            },
             views: {
                 content: {
                     templateUrl: 'components/profile/profile.html',
@@ -21,10 +17,5 @@
                 }
             }
         });
-    }
-
-    /* ngInject */
-    function ProfileResolver(accountService) {
-        return accountService.getCurrentUser();
     }
 })();

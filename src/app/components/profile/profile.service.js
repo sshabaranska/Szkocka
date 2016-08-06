@@ -12,7 +12,8 @@
             saveUsersProfileData: saveUsersProfileData,
             getInvitations: getInvitations,
             acceptInvitation: acceptInvitation,
-            declineInvitation: declineInvitation
+            declineInvitation: declineInvitation,
+            changePassword: changePassword
         };
 
         function getUserProfile(id) {
@@ -22,7 +23,7 @@
 
         function saveUsersProfileData(params) {
             Assert.isObject(params, 'Invalid "params" type');
-            return $http.post(API_URL + 'users', params);
+            return $http.put(API_URL + 'users', params);
         }
 
         function getInvitations() {
@@ -37,6 +38,12 @@
         function declineInvitation(id) {
             Assert.isString(id, 'Invalid "id" type');
             return $http.post(API_URL + 'users/me/invites/researches/' + id + '/declined', {});
+        }
+
+        function changePassword(id, params) {
+            Assert.isString(id, 'Invalid "id" type');
+            Assert.isObject(params, 'Invalid "params" type');
+            return $http.put(API_URL + 'users/me/password', params);
         }
     }
 })();

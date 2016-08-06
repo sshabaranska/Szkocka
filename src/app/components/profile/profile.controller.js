@@ -7,23 +7,19 @@
 
     /* ngInject */
     function ProfileController($scope, $state, $stateParams, profileService,
-        ProfileResolver, Assert, Type) {
+        accountService, Assert, Type) {
         /** @public {Object} */
-        $scope.isMyProfile = Type.isUndefined($stateParams.id);
+        $scope.isMyProfile = $stateParams.id === 'null';
         /** @private {String} */
-        $scope.userId = $stateParams.id || ProfileResolver._id;
+        $scope.userId = $scope.isMyProfile ? accountService.getCurrentUser()._id : $stateParams.id;
         /** @public {Object} */
         $scope.user = {};
-        /** @public {Array<String>} */
-        $scope.area = [];
         /** @public {Array<Object>} */
         $scope.invitations = [];
         /** @public {String} */
         $scope.errorMsg = null;
 
-        /**
-         * @private
-         */
+        /** @private */
         $scope._init = function() {
             $scope.getUserProfile();
 
@@ -32,28 +28,17 @@
             }
         };
 
-        /**
-         * @public
-         */
+        /** @public */
         $scope.getUserProfile = function() {
-            profileService.getUserProfile($scope.userId)
+            profileService.getUserProfile($scope.userId.toString())
                 .then(function(res) {
                         $scope.user = res.data;
-                        if (!_.isEmpty($scope.user.supervisor_of)){
-                            var area = []; 
-                            $scope.user.supervisor_of.forEach(function(proj) {
-                                area.push(proj.area);
-                            });
-                            $scope.area = _.uniq(area)
-                        }
                     }, function(err) {
                         $scope.errorMsg = 'User was not found';
                     });
         };
 
-        /**
-         * @public
-         */
+        /** @public */
         $scope.getInvitations = function() {
             profileService.getInvitations()
                 .then(function(res) {
@@ -65,11 +50,9 @@
                 });
         };
 
-        /**
-         * @public
-         */
+        /** @public */
         $scope.edit = function() {
-            $state.go('edit-profile', {id: $scope.userId});
+            $state.go('profile-edit', {id: $scope.userId});
         };
 
         /**
