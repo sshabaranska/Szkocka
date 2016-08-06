@@ -20,10 +20,17 @@
         /** @public {String} */
         $scope.errorMsg = null;
 
+        $scope._init = _init;
+        $scope.loadMore = loadMore;
+        $scope.showMore = showMore;
+        $scope.showLess = showLess;
+        $scope.addNews = addNews;
+        $scope.detectClass = detectClass;
+
         /**
          * @public
          */
-        $scope.loadMore = function() {
+       function loadMore() {
             if($scope.loadMoreAvailable) {
                 $scope._init();
             }
@@ -32,7 +39,7 @@
         /**
          * @public
          */
-        $scope._init = function() {
+        function _init() {
             $scope.errorMsg = null;
             newsService.get($scope.cursor)
                 .then(function(res){
@@ -63,7 +70,7 @@
          * @public
          * @param {Object} el
          */
-        $scope.showMore = function(el) {
+        function showMore(el) {
             Assert.isObject(el, 'Invalid "el" type');
             el.showMore = false;
         };
@@ -72,7 +79,7 @@
          * @public
          * @param {Object} el
          */
-        $scope.showLess = function(el) {
+        function showLess(el) {
             Assert.isObject(el, 'Invalid "el" type');
             el.showMore = true;
         };
@@ -80,7 +87,7 @@
         /**
          * @public
          */
-        $scope.addNews = function() {
+        function addNews() {
             $state.go('news-edit');
         };
 
@@ -89,7 +96,7 @@
          * @param {Object} el
          * @return {String}
          */
-        $scope.detectClass = function(el) {
+        function detectClass(el) {
             Assert.isObject(el, 'Invalid "el" type');
             if(el.showMore) {
                 return 'short-decsr';

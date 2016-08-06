@@ -19,8 +19,15 @@
         /** @public {String} */
         $scope.errorMsg = null;
 
+        $scope._init = _init;
+        $scope.getUserProfile = getUserProfile;
+        $scope.getInvitations = getInvitations;
+        $scope.edit = edit;
+        $scope.accept = accept;
+        $scope.ignore = ignore;
+
         /** @private */
-        $scope._init = function() {
+        function _init() {
             $scope.getUserProfile();
 
             if ($scope.isMyProfile) {
@@ -29,7 +36,7 @@
         };
 
         /** @public */
-        $scope.getUserProfile = function() {
+        function getUserProfile() {
             profileService.getUserProfile($scope.userId.toString())
                 .then(function(res) {
                         $scope.user = res.data;
@@ -39,7 +46,7 @@
         };
 
         /** @public */
-        $scope.getInvitations = function() {
+        function getInvitations() {
             profileService.getInvitations()
                 .then(function(res) {
                     if (!Type.isNull(res)) {
@@ -51,7 +58,7 @@
         };
 
         /** @public */
-        $scope.edit = function() {
+        function edit() {
             $state.go('profile-edit', {id: $scope.userId});
         };
 
@@ -59,14 +66,12 @@
          * @public
          * @param {Object} proj
          */
-        $scope.accept = function(proj) {
+        function accept(proj) {
             Assert.isObject(proj, 'Invalid "proj" type');
 
             profileService.acceptInvitation(proj.id.toString())
                 .then(function(res) {
-                    if (!Type.isNull(res)) {
-                        $scope._init();
-                    }
+                    $scope._init();
                 }, function(err) {
                     console.log(err.message);
                 });
@@ -76,14 +81,12 @@
          * @public
          * @param {Object} proj
          */
-        $scope.ignore = function(proj) {
+        function ignore(proj) {
             Assert.isObject(proj, 'Invalid "proj" type');
 
             profileService.declineInvitation(proj.id.toString())
                 .then(function(res) {
-                    if (!Type.isNull(res)) {
-                        $scope._init();
-                    }
+                    $scope._init();
                 }, function(err) {
                     console.log(err.message);
                 });

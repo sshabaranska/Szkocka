@@ -10,7 +10,9 @@
         /** @public {Object} */
         $scope.user = userProfileResolver.data;
 
-        $scope.save = function() {
+        $scope.save = save;
+
+        function save() {
             profileService.saveUsersProfileData($scope.user)
                 .then(function(res) {
                     $state.go('profile', {id: 'null'});

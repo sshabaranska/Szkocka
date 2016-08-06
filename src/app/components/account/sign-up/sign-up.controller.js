@@ -12,12 +12,14 @@
         /** @public {Object} */
         $scope.errors = {};
 
+        $scope.signUp = signUp;
+
         /**
          * @public
          * @param {Object} event
          * @param {Boolean} valid
          */
-        $scope.signUp = function (valid, event) {
+        function signUp(valid, event) {
             Assert.isObject(event, 'Invalid "event" type');
 
             event.preventDefault();

@@ -12,13 +12,15 @@
         /** @private {String} */
         $scope.errorMsg = null;
         /** @private {String} */
-        $scope.message = null
+        $scope.message = null;
+
+        $scope.changePassword = changePassword;
 
         /**
          * @public
          * @param {Object} form
          */
-        $scope.changePassword = function(valid) {
+        function changePassword(valid) {
             if(!valid) {
                 return;
             }
