@@ -12,8 +12,7 @@
             parent: 'project',
             views: {
                 content: {
-                    templateUrl: 'components/projects/project/about/about.html',
-                    controller: 'ProjectAboutController'
+                    templateUrl: 'components/projects/project/about/about.html'
                 }
             }
         });

@@ -9,7 +9,7 @@
     function ProfileController($scope, $state, $stateParams, profileService,
         accountService, Assert, Type) {
         /** @public {Object} */
-        $scope.isMyProfile = $stateParams.id === 'null';
+        $scope.isMyProfile = $stateParams.id === 'my';
         /** @private {String} */
         $scope.userId = $scope.isMyProfile ? accountService.getCurrentUser()._id : $stateParams.id;
         /** @public {Object} */
@@ -37,7 +37,7 @@
 
         /** @public */
         function getUserProfile() {
-            profileService.getUserProfile($scope.userId.toString())
+            profileService.getUserProfile($scope.userId)
                 .then(function(res) {
                         $scope.user = res.data;
                     }, function(err) {
@@ -67,7 +67,7 @@
         function accept(proj) {
             Assert.isObject(proj, 'Invalid "proj" type');
 
-            profileService.acceptInvitation(proj.id.toString())
+            profileService.acceptInvitation(proj.id)
                 .then(function(res) {
                     $scope._init();
                 }, function(err) {
@@ -82,7 +82,7 @@
         function ignore(proj) {
             Assert.isObject(proj, 'Invalid "proj" type');
 
-            profileService.declineInvitation(proj.id.toString())
+            profileService.declineInvitation(proj.id)
                 .then(function(res) {
                     $scope._init();
                 }, function(err) {

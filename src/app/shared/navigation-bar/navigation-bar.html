@@ -46,10 +46,12 @@
                             <a ui-sref="news">News</a>
                         </li>
                         <li ui-sref-active="active">
-                            <a href="#/profile/null">Profile</a>
+                            <a ui-sref="profile({id: 'my'})">My Profile</a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="change-password">Change Password</a>
+                            <a ui-sref="change-password">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </a>
                         </li>
                         <li ui-sref-active="active">
                             <a href="#" ng-click="signOut()">Sign out</a>

@@ -2,11 +2,11 @@
     'use strict';
 
     angular
-        .module('news.edit')
-        .controller('NewsEditController', NewsEditController);
+        .module('news.add')
+        .controller('NewsAddController', NewsAddController);
 
     /* ngInject */
-    function NewsEditController($scope, $state, newsService, Upload, API_URL, Assert, Type) {
+    function NewsAddController($scope, $state, newsService, Upload, API_URL, Assert, Type) {
         /** @public {Object} */
         $scope.newsToAdd = {};
         /** @public {String} */

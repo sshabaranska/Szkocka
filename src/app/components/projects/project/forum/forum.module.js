@@ -1,2 +1,4 @@
 angular
-    .module('project.forum', []);
+    .module('project.forum', [
+    		'project.forum.messages'
+    	]);

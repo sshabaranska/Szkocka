@@ -15,7 +15,7 @@
         function save() {
             profileService.saveUsersProfileData($scope.user)
                 .then(function(res) {
-                    $state.go('profile', {id: 'null'});
+                    $state.go('profile', {id: 'my'});
                 }, function(err) {
                     console.log(err.message);
                 });

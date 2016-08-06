@@ -2,18 +2,18 @@
     'use strict';
 
     angular
-        .module('news.edit')
+        .module('news.add')
         .config(config);
 
     /* ngInject */
     function config($stateProvider) {
-        $stateProvider.state('news-edit', {
-            url: '^/news-edit',
+        $stateProvider.state('news-add', {
+            url: '^/news-add',
             parent: 'restricted-area',
             views: {
                 content: {
-                    templateUrl: 'components/news/edit/edit.html',
-                    controller: 'NewsEditController'
+                    templateUrl: 'components/news/add/add.html',
+                    controller: 'NewsAddController'
                 }
             }
         });

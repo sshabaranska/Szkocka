@@ -17,7 +17,6 @@
         };
 
         function getUserProfile(id) {
-            Assert.isString(id, 'Invalid "id" type');
             return $http.get(API_URL + 'users/' + id);
         }
 
@@ -31,12 +30,10 @@
         }
 
         function acceptInvitation(id) {
-            Assert.isString(id, 'Invalid "id" type');
             return $http.post(API_URL + 'users/me/invites/researches/' + id + '/accepted', {});
         }
 
         function declineInvitation(id) {
-            Assert.isString(id, 'Invalid "id" type');
             return $http.post(API_URL + 'users/me/invites/researches/' + id + '/declined', {});
         }
 
