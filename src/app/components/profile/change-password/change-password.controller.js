@@ -6,9 +6,7 @@
         .controller('ChangePasswordController', ChangePasswordController);
 
     /* ngInject */
-    function ChangePasswordController($scope, profileService, accountService) {
-        /** @private {Object} */
-        $scope.user = accountService.getCurrentUser();
+    function ChangePasswordController($scope, profileService) {
         /** @private {Object} */
         $scope.data = {};
         /** @private {String} */
@@ -24,7 +22,7 @@
             if(!valid) {
                 return;
             }
-            profileService.changePassword($scope.user._id.toString(), $scope.data)
+            profileService.changePassword($scope.data)
                 .then(function(res) {
                     $scope.message = 'Password successfully changed.';
                 }, function(err) {

@@ -40,8 +40,7 @@
             return $http.post(API_URL + 'users/me/invites/researches/' + id + '/declined', {});
         }
 
-        function changePassword(id, params) {
-            Assert.isString(id, 'Invalid "id" type');
+        function changePassword(params) {
             Assert.isObject(params, 'Invalid "params" type');
             return $http.put(API_URL + 'users/me/password', params);
         }
