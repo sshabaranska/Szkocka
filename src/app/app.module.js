@@ -8,6 +8,7 @@ angular
         'ngFileUpload',
         'ngTagsInput',
         'angularMoment',
+        'ui.bootstrap',
 
         'kendo.directives',
         'lazy-scroll',

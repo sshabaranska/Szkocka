@@ -49,9 +49,7 @@
         function getInvitations() {
             profileService.getInvitations()
                 .then(function(res) {
-                    if (!Type.isNull(res)) {
-                        $scope.invitations = _.uniq(res.data.researches);
-                    }
+                    $scope.invitations = _.uniq(res.data.researches);
                 }, function(err) {
                     console.log(err.message);
                 });

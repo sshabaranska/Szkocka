@@ -12,10 +12,14 @@
         /** @public {String} */
         $scope.errorMsg = null;
 
+        $scope.save = save;
+        $scope.cancel = cancel;
+        $scope.onFileSelect = onFileSelect;
+
         /**
          * @public
          */
-        $scope.save = function(valid) {
+        function save(valid) {
             if (!valid || Type.isUndefined($scope.newsToAdd.body) ||
                 $scope.newsToAdd.body == '') {
                 $scope.errorMsg = 'Form is not valid';
@@ -33,7 +37,7 @@
         /**
          * @public
          */
-        $scope.cancel = function() {
+        function cancel() {
             $state.go('news');
         };
 
@@ -41,7 +45,7 @@
          * @public
          * @param {Object} event
          */
-        $scope.onFileSelect = function(event) {
+        function onFileSelect(event) {
             Assert.isObject(event, 'Invalid "event" type');
 
             var image = event.target.files[0];

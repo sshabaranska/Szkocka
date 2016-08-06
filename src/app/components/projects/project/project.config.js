@@ -8,7 +8,7 @@
     /* ngInject */
     function config($stateProvider) {
         $stateProvider.state('project', {
-            url: '^/project',
+            url: '^/project/:id',
             parent: 'restricted-area',
             views: {
                 content: {
