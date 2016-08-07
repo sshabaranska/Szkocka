@@ -25,6 +25,8 @@
         $scope.roles = ROLES;
 
         $scope._init = _init;
+        $scope._deleteUsers = _deleteUsers;
+        $scope._banUsers = _banUsers;
         $scope.loadMore = loadMore;
         $scope.apply = apply;
         $scope.changeRole = changeRole;
@@ -67,16 +69,50 @@
          * @public
          */
         function apply() {
+            if ($scope.params.selectedUsers.length > 0) {
+                return;
+            }
             switch($scope.params.selectedAction) {
                 case '1':
-                    console.log('Delete user');
+                    $scope._deleteUsers();
                     break;
                 case '2':
-                    console.log('Ban user');
+                    $scope._banUsers();
                     break;
                 default:
                     return;
             }
+        };
+
+        function _deleteUsers() {
+            adminService.deleteUsers({users_ids: $scope.params.selectedUsers})
+                .then(function(res) {
+                    $scope.users = [];
+                    $scope.cursor = '';
+                    $scope.loadMoreAvailable = true;
+                    $scope.params.selectedUsers = [];
+                    $scope._init();
+                }, function(err) {
+                    console.log(err);
+                });
+        };
+
+        function _banUsers() {
+            var params = {
+                users_ids: $scope.params.selectedUsers,
+                ban_forums: true,
+                ban_messages: false
+            }
+            adminService.banUsers(params)
+                .then(function(res) {
+                    $scope.users = [];
+                    $scope.cursor = '';
+                    $scope.loadMoreAvailable = true;
+                    $scope.params.selectedUsers = [];
+                    $scope._init();
+                }, function(err) {
+                    console.log(err);
+                });
         };
 
         /**

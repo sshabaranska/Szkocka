@@ -10,8 +10,8 @@
     	return {
     		getUsers: getUsers,
             queryUsers: queryUsers,
-            deleteUser: deleteUser,
-            banUser: banUser,
+            deleteUsers: deleteUsers,
+            banUsers: banUsers,
             changeRole: changeRole
     	}
 
@@ -38,12 +38,12 @@
             return $http.get(API_URL);
         }
 
-        function deleteUser() {
-            return $http.post(API_URL);
+        function deleteUsers(params) {
+            return $http.post(API_URL + 'users/deleted', params);
         }
 
-        function banUser() {
-            return $http.post(API_URL);
+        function banUsers(params) {
+            return $http.post(API_URL + 'users/banned', params);
         }
 
         function changeRole() {
