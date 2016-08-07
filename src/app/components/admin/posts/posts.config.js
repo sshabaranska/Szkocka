@@ -8,7 +8,7 @@
     /* ngInject */
     function config($stateProvider) {
         $stateProvider.state('admin.posts', {
-            url: '/posts',
+            url: '/posts/:userId/:userName',
             parent: 'admin',
             views: {
                 content: {

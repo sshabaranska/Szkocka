@@ -7,6 +7,5 @@
 
     /* ngInject */
     function AdminController() {
-
     }
 })();

@@ -21,6 +21,7 @@ angular
         //inject here your components
         'about',
         'account',
+        'admin',
         'home',
         'news',
         'profile',

@@ -7,28 +7,15 @@
 
     /* ngInject */
     function UpdateController($scope, $state, UpdateResolver, projectsService,
-    	Assert, Type) {
+    	PROJ_STATUSES, Assert, Type) {
         /** @public {Object} */
         $scope.project = UpdateResolver.data;
         /** @public {Array<Object>} */
-        $scope.statuses = [
-            {
-                id: 'active',
-                name: 'Active'
-            },
-            {
-                id: 'closed',
-                name: 'Closed'
-            },
-            {
-                id: 'onhold',
-                name: 'On Hold'
-            }
-        ];
+        $scope.statuses = PROJ_STATUSES;
 
         $scope.update = update;
         $scope.removeResearcher = removeResearcher;
-        $scope.onFileSelect = onFileSelect;
+
         /**
          * @public
          * @param {Boolean} valid
