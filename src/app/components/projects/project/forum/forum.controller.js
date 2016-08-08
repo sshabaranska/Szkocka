@@ -7,7 +7,7 @@
 
     /* ngInject */
     function ProjectForumController($scope, $state, $stateParams, LOAD_LIMIT, forumService, Assert) {
-    	/** @private {String} */
+        /** @private {String} */
         $scope.researchId = $stateParams.id;
         /** @public {Array<Object>} */
         $scope.forums = [];
@@ -19,12 +19,9 @@
         $scope.loadMoreAvailable = true;
 
         $scope._init = _init;
-		$scope.loadMore = loadMore;
-		$scope.createForum = createForum;
+        $scope.loadMore = loadMore;
+        $scope.createForum = createForum;
 
-        /**
-         * @private
-         */
         function _init() {
             $scope.errorMsg = null;
 
@@ -34,8 +31,8 @@
             };
 
             forumService.get(params)
-            	.then(function(res) {
-            		$scope.forumsAccessError = false;
+                .then(function(res) {
+                    $scope.forumsAccessError = false;
                     if ($scope.cursor == res.data.cursor) {
                         return;
                     }
@@ -47,15 +44,12 @@
                     res.data.forums.forEach(function(forum) {
                         $scope.forums.push(forum);
                     });
-            	}, function(err) {
-            		$scope.loadMoreAvailable = false;
-            		console.log(err.message);
-            	});
+                }, function(err) {
+                    $scope.loadMoreAvailable = false;
+                    console.log(err.message);
+                });
         };
 
-        /**
-         * @public
-         */
         function loadMore() {
             if($scope.loadMoreAvailable) {
                 $scope._init();
@@ -63,23 +57,25 @@
         };
 
         /**
-         * @public
          * @param {String} topic
+         * @param {Object} e
          */
-        function createForum(topic){
+        function createForum(topic, e){
             Assert.isString(topic, 'Invalid "topic" type');
+
+            e.preventDefault();
 
             var params = {
                 researchId: $scope.researchId,
                 subject: topic
             };
 
-            forumService.createNewForum(params)
-            	.then(function(res) {
-            		$state.go('project.forum.messages', {forumId: res.data.forum_id});
-            	}, function(err) {
-            		console.log(err.message);
-            	});
+            forumService.create(params)
+                .then(function(res) {
+                    $state.go('project.messages', {forumId: res.data.forum_id});
+                }, function(err) {
+                    console.log(err.message);
+                });
         };
         $scope._init();
     }

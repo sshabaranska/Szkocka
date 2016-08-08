@@ -11,7 +11,7 @@
             <div ng-if="showEditableTexarea" class="add-margin-bottom">
                 <textarea kendo-editor k-ng-model="editedDescription"></textarea>
             </div>
-            <button ng-if="showEditableTexarea" class="btn btn-primary" ng-click="save()">Save</button>
+            <button ng-if="showEditableTexarea" class="btn btn-primary" ng-click="save($event)">Save</button>
             <button ng-if="showEditableTexarea" class="btn btn-default" ng-click="cancel()">Cancel</button>
         </div>
     </div>

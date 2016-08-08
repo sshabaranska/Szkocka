@@ -7,14 +7,13 @@
 
     /* ngInject */
     function messagesService($http, API_URL, Assert, Type) {
-    	return {
-    		getForumById: getForumById,
-    		getForumMessages: getForumMessages,
-    		createNewMessage: createNewMessage
-    	}
+        return {
+            getForumById: getForumById,
+            getForumMessages: getForumMessages,
+            createNewMessage: createNewMessage
+        }
 
-    	/**
-         * @public
+        /**
          * @param {String} id
          */
         function getForumById(id) {
@@ -22,7 +21,6 @@
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function getForumMessages(params) {
@@ -33,13 +31,12 @@
             if (Type.isNull(params.cursor)) {
                 query = params.forumId + '/messages';
             } else {
-            	query = params.forumId + '/messages?cursor=' + params.cursor;
+                query = params.forumId + '/messages?cursor=' + params.cursor;
             }
             return $http.get(API_URL + 'forums/' + query);
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function createNewMessage(params) {

@@ -17,9 +17,12 @@
         $scope.onFileSelect = onFileSelect;
 
         /**
-         * @public
+         * @param {Boolean} valid
+         * @param {Object} event
          */
-        function save(valid) {
+        function save(valid, e) {
+            e.preventDefault();
+
             if (!valid || Type.isUndefined($scope.newsToAdd.body) ||
                 $scope.newsToAdd.body == '') {
                 $scope.errorMsg = 'Form is not valid';
@@ -34,15 +37,11 @@
                 });
         };
 
-        /**
-         * @public
-         */
         function cancel() {
             $state.go('news');
         };
 
         /**
-         * @public
          * @param {Object} event
          */
         function onFileSelect(event) {

@@ -26,7 +26,6 @@
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function query(params) {
@@ -60,15 +59,13 @@
         };
 
         /**
-         * @public
-         * @param {String} id
+         * @param {Number} id
          */
         function getProjectById(id) {
             return $http.get(API_URL + 'researches/' + id);
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function update(params) {
@@ -77,7 +74,6 @@
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function sendInvitation(params) {
@@ -86,7 +82,6 @@
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function removeResearcher(params) {
@@ -95,7 +90,6 @@
         };
 
         /**
-         * @public
          * @param {String} id
          */
         function getJoinRequests(id) {
@@ -103,7 +97,6 @@
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function joinResearch(params) {
@@ -112,7 +105,6 @@
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function aproveResearcher(params) {
@@ -121,7 +113,6 @@
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function rejectResearcher(params) {
@@ -130,8 +121,7 @@
         };
 
         /**
-         * @public
-         * @param {String} id
+         * @param {Number} id
          */
         function getUserProfile(id) {
             return $http.get(API_URL + 'users/' + id);

@@ -8,7 +8,7 @@
         </div>
     </form>
 
-    <button type="button" class="btn btn-primary" ng-click="createForum(newForum)">Start topic</button>
+    <button type="button" class="btn btn-primary" ng-click="createForum(newForum, $event)">Start topic</button>
     <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
         <div ng-repeat="forum in forums | orderBy: 'forum.created'">
             <h3><a ui-sref="project.messages({forumId: forum.id})">{{forum.subject}}</a></h3>

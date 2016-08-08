@@ -15,7 +15,6 @@
         $scope.signIn = signIn;
 
         /**
-         * @public
          * @param {Object} event
          * @param {Boolean} valid
          */

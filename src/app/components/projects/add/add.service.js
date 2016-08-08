@@ -8,24 +8,17 @@
     /* ngInject */
     function addService($http, API_URL, Assert) {
         return {
-        	create: create,
-        	createForum: createForum
-
+            create: create,
+            createForum: createForum
         }
 
-        /**
-         * @public
-         * @param {Object} params
-         */
+        /** @param {Object} params */
         function create(params) {
             Assert.isObject(params, 'Invalid "params" type');
             return $http.post(API_URL + 'researches', params);
         };
 
-        /**
-         * @public
-         * @param {Object} params
-         */
+        /** @param {Object} params */
         function createForum(params) {
             Assert.isObject(params, 'Invalid "params" type');
             Assert.isString(params.subject, 'Invalid "params.subject" type');

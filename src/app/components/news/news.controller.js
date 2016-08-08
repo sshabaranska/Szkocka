@@ -27,18 +27,12 @@
         $scope.addNews = addNews;
         $scope.detectClass = detectClass;
 
-        /**
-         * @public
-         */
        function loadMore() {
             if($scope.loadMoreAvailable) {
                 $scope._init();
             }
         };
 
-        /**
-         * @public
-         */
         function _init() {
             $scope.errorMsg = null;
             newsService.get($scope.cursor)
@@ -67,7 +61,6 @@
         };
 
         /**
-         * @public
          * @param {Object} el
          */
         function showMore(el) {
@@ -76,7 +69,6 @@
         };
 
         /**
-         * @public
          * @param {Object} el
          */
         function showLess(el) {
@@ -84,15 +76,11 @@
             el.showMore = true;
         };
 
-        /**
-         * @public
-         */
         function addNews() {
-            $state.go('news-edit');
+            $state.go('news-add');
         };
 
         /**
-         * @public
          * @param {Object} el
          * @return {String}
          */

@@ -7,7 +7,7 @@
 
     /* ngInject */
     function UpdateController($scope, $state, UpdateResolver, projectsService,
-    	PROJ_STATUSES, Assert, Type) {
+        PROJ_STATUSES, Assert, Type) {
         /** @public {Object} */
         $scope.project = UpdateResolver.data;
         /** @public {Array<Object>} */
@@ -17,10 +17,12 @@
         $scope.removeResearcher = removeResearcher;
 
         /**
-         * @public
          * @param {Boolean} valid
+         * @param {Object} e
          */
-        function update(valid) {
+        function update(valid, e) {
+            e.preventDefault();
+
             if(!valid) {
                 return;
             }
@@ -37,15 +39,14 @@
             };
 
             projectsService.update(params)
-            	.then(function(res) {
-            		$state.go('project.about', {id: $scope.project.id});
-            	}, function(err) {
-            		console.log(err);
-            	});
+                .then(function(res) {
+                    $state.go('project.about', {id: $scope.project.id});
+                }, function(err) {
+                    console.log(err);
+                });
         };
 
         /**
-         * @public
          * @param {Object} researcher
          */
         function removeResearcher(researcher) {
@@ -55,15 +56,15 @@
             };
 
             projectsService.removeResearcher(params)
-            	.then(function(res) {
-            		for (var i = 0; i < $scope.project.researchers.length; i++) {
+                .then(function(res) {
+                    for (var i = 0; i < $scope.project.researchers.length; i++) {
                         if ($scope.project.researchers[i].id == researcher.id) {
                             $scope.project.researchers.splice(i, 1);
                         }
                     };
-            	}, function(err) {
-            		console.log(err);
-            	});
+                }, function(err) {
+                    console.log(err);
+                });
         };
-	};
+    };
 })();

@@ -18,9 +18,6 @@
         /** @public {Boolean} */
         $scope.canJoinProject = false;
 
-        /** @public {String} */
-        $scope.errorMsg = null;
-
         $scope._init = _init;
         $scope._getJoinRequests = _getJoinRequests;
         $scope.edit = edit;
@@ -28,12 +25,7 @@
         $scope.accept = accept;
         $scope.ignore = ignore;
 
-        /**
-         * @private
-         */
         function _init() {
-            $scope.errorMsg = '';
-
             if($scope.project.relationship_type === 'NONE') {
                 $scope.canJoinProject = true;
             }
@@ -44,9 +36,6 @@
             }
         };
 
-        /**
-         * @private
-         */
         function _getJoinRequests() {
             projectsService.getJoinRequests($scope.project.id)
                 .then(function(res) {
@@ -62,17 +51,10 @@
                 });
         };
 
-
-        /**
-         * @public
-         */
         function edit() {
             $state.go('project-update', {id: $scope.project.id});
         };
 
-        /**
-         * @public
-         */
         function join() {
             projectsService.joinResearch({id: $scope.project.id, text: "DEF"})
                 .then(function(res) {
@@ -83,7 +65,6 @@
         };
 
         /**
-         * @public
          * @param {Object} user
          */
         function accept(user) {
@@ -103,7 +84,6 @@
         };
 
         /**
-         * @public
          * @param {Object} user
          */
         function ignore(user) {

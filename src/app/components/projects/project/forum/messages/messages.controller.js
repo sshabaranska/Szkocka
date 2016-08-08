@@ -7,7 +7,7 @@
 
     /* ngInject */
     function ForumMessagesController($scope, $stateParams, LOAD_LIMIT, messagesService, Assert) {
-    	/** @private {String} */
+        /** @private {String} */
         $scope.forumId = $stateParams.forumId;
         /** @public {Object} */
         $scope.activeForum = {};
@@ -25,30 +25,21 @@
         $scope.loadMore = loadMore;
         $scope.postMessage = postMessage;
 
-        /**
-         * @private
-         */
         function _getActiveForum() {
-        	messagesService.getForumById($scope.forumId)
-        		.then(function(res) {
-        			$scope.activeForum = res.data;
-        		},function(err) {
-        			console.log(err.message);
-        		});
+            messagesService.getForumById($scope.forumId)
+                .then(function(res) {
+                    $scope.activeForum = res.data;
+                },function(err) {
+                    console.log(err.message);
+                });
         };
 
-        /**
-         * @public
-         */
         function loadMore() {
             if($scope.loadMoreAvailable) {
                 $scope._init();
             }
         };
 
-        /**
-         * @private
-         */
         function _init() {
             var params = {
                 cursor: $scope.cursor,
@@ -56,8 +47,8 @@
             };
 
             messagesService.getForumMessages(params)
-            	.then(function(res) {
-            		if ($scope.cursor == res.data.cursor) {
+                .then(function(res) {
+                    if ($scope.cursor == res.data.cursor) {
                         return;
                     }
                     if (res.data.messages.length < LOAD_LIMIT) {
@@ -68,18 +59,19 @@
                     res.data.messages.forEach(function(msg) {
                         $scope.activeForumMessages.push(msg);
                     });
-            	}, function(err) {
-            		$scope.loadMoreAvailable = false;
-            		console.log(err.message);
-            	});
+                }, function(err) {
+                    $scope.loadMoreAvailable = false;
+                    console.log(err.message);
+                });
         };
 
         /**
-         * @public
          * @param {String} text
+         * @param {Object} e
          */
-        function postMessage(text){
+        function postMessage(text, e){
             Assert.isString(text, 'Invalid "text" type');
+            e.preventDefault();
 
             var params = {
                 forumId: $scope.forumId,
@@ -87,17 +79,17 @@
             };
 
             messagesService.createNewMessage(params)
-            	.then(function(res) {
-            		var msg = {
+                .then(function(res) {
+                    var msg = {
                         message: text,
                         createdBy: {name:'You'},
                         created: new Date()
                     };
                     $scope.activeForumMessages.push(msg);
                     $scope.newMessage = '';
-            	}, function(err) {
-            		console.log(err.message);
-            	});
+                }, function(err) {
+                    console.log(err.message);
+                });
         };
 
         $scope._init();

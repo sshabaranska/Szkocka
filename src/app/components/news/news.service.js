@@ -11,8 +11,8 @@
             get: get,
             create: create
         }
+
         /**
-         * @public
          * @param {String} cursor - optional
          * @return {Promise}
          */
@@ -27,7 +27,6 @@
         };
 
         /**
-         * @public
          * @param {Object} params
          * @return {Promise}
          */

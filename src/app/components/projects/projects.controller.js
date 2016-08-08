@@ -7,22 +7,20 @@
 
     /* ngInject */
     function ProjectsController($scope, accountService, projectsService) {
-    	/** @private {String} */
+        /** @private {String} */
         $scope.userId = accountService.getCurrentUser()._id;
         /** @public {Object} */
         $scope.user = {};
 
         $scope._init = _init;
-        /**
-         * @private
-         */
+
         function _init() {
-        	projectsService.getUserProfile($scope.userId)
-        		.then(function(res) {
-        			$scope.user = res.data;
-        		}, function() {
-        			console.log(err.message);
-        		});
+            projectsService.getUserProfile($scope.userId)
+                .then(function(res) {
+                    $scope.user = res.data;
+                }, function() {
+                    console.log(err.message);
+                });
         };
 
         $scope._init();

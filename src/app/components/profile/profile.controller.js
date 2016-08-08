@@ -8,7 +8,7 @@
     /* ngInject */
     function ProfileController($scope, $state, $stateParams, profileService,
         accountService, Assert, Type) {
-        /** @public {Object} */
+        /** @public {Boolean} */
         $scope.isMyProfile = $stateParams.id === 'my';
         /** @private {String} */
         $scope.userId = $scope.isMyProfile ? accountService.getCurrentUser()._id : $stateParams.id;
@@ -26,7 +26,6 @@
         $scope.accept = accept;
         $scope.ignore = ignore;
 
-        /** @private */
         function _init() {
             $scope.getUserProfile();
 
@@ -35,7 +34,6 @@
             }
         };
 
-        /** @public */
         function getUserProfile() {
             profileService.getUserProfile($scope.userId)
                 .then(function(res) {
@@ -45,7 +43,6 @@
                     });
         };
 
-        /** @public */
         function getInvitations() {
             profileService.getInvitations()
                 .then(function(res) {
@@ -55,13 +52,11 @@
                 });
         };
 
-        /** @public */
         function edit() {
             $state.go('profile-edit', {id: $scope.userId});
         };
 
         /**
-         * @public
          * @param {Object} proj
          */
         function accept(proj) {
@@ -76,7 +71,6 @@
         };
 
         /**
-         * @public
          * @param {Object} proj
          */
         function ignore(proj) {

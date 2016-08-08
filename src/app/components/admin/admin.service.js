@@ -7,17 +7,17 @@
 
     /* ngInject */
     function adminService($http, API_URL, Assert, Type) {
-    	return {
-    		getUsers: getUsers,
+        return {
+            getUsers: getUsers,
             queryUsers: queryUsers,
             deleteUsers: deleteUsers,
             banUsers: banUsers,
             changeRole: changeRole
-    	}
+        }
 
         /**
-         * @public
          * @param {String} cursor
+         * @return {Promise}
          */
         function getUsers(cursor) {
             Assert.isString(cursor, 'Invalid "cursor" type');
@@ -30,18 +30,26 @@
         }
 
         /**
-         * @public
          * @param {Object} params
+         * @return {Promise}
          */
         function queryUsers(params) {
             Assert.isObject(params, 'Invalid "params" type');
             return $http.get(API_URL);
         }
 
+        /**
+         * @param {Object} params
+         * @return {Promise}
+         */
         function deleteUsers(params) {
             return $http.post(API_URL + 'users/deleted', params);
         }
 
+        /**
+         * @param {Object} params
+         * @return {Promise}
+         */
         function banUsers(params) {
             return $http.post(API_URL + 'users/banned', params);
         }

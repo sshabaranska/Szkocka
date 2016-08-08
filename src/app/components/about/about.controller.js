@@ -17,7 +17,8 @@
         $scope.cancel = cancel;
 
 
-        function save() {
+        function save(e) {
+            e.preventDefault();
             aboutService.update({
                     content: $scope.editedDescription
                 }).then(function(response){

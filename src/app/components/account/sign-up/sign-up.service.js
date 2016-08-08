@@ -9,8 +9,6 @@
     function signUpService($http, $rootScope, $q, API_URL, authService, Assert, Type) {
         return {
             /**
-             * Create a new user
-             * public
              * @param  {Object}   user     - user info
              * @return {Promise}
              */

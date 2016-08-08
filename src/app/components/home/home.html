@@ -1,18 +1,18 @@
 <section class="main-carousel container">
-  	<div class="row">
-	    <div id="carousel-wrapper" ng-carousel-wrapper>
-	      	<carousel interval="carouselInterval">
-	        	<slide ng-repeat="project in latest5" active="slide.active">
-	          		<img ng-src="{{project.image_url}}"/>
-	          		<div class="overlay"></div>
-	          		<div class="carousel-caption">
-	            		<h4>{{project.title}}</h4>
-	            		<a ui-sref="project({id: project.id})" class="btn btn-primary">Read more</a>
-	          		</div>
-	        	</slide>
-	      	</carousel>
-	    </div>
-  	</div>
+      <div class="row">
+        <div id="carousel-wrapper" ng-carousel-wrapper>
+            <carousel interval="carouselInterval">
+                <slide ng-repeat="project in latest5" active="slide.active">
+                      <img ng-src="{{project.image_url}}"/>
+                      <div class="overlay"></div>
+                      <div class="carousel-caption">
+                        <h4>{{project.title}}</h4>
+                        <a ui-sref="project({id: project.id})" class="btn btn-primary">Read more</a>
+                      </div>
+                </slide>
+            </carousel>
+        </div>
+      </div>
 </section>
 
 <section class="projects container">

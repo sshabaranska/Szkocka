@@ -17,10 +17,12 @@
         $scope.changePassword = changePassword;
 
         /**
-         * @public
-         * @param {Object} form
+         * @param {Boolean} valid
+         * @param {Object} e
          */
-        function changePassword(valid) {
+        function changePassword(valid, e) {
+            e.preventDefault();
+
             if(!valid) {
                 return;
             }

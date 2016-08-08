@@ -7,13 +7,12 @@
 
     /* ngInject */
     function forumService($http, API_URL, Assert, Type) {
-    	return {
-    		get: get,
-    		create: create
-    	}
+        return {
+            get: get,
+            create: create
+        }
 
-    	/**
-         * @public
+        /**
          * @param {Object} params
          */
         function get(params) {
@@ -23,13 +22,12 @@
             if (Type.isNull(params.cursor)) {
                 query = '/forums';
             } else {
-            	query = '/forums?cursor=' + params.cursor;
+                query = '/forums?cursor=' + params.cursor;
             }
             return $http.get(API_URL + 'researches/' + params.researchId + query);
         };
 
         /**
-         * @public
          * @param {Object} params
          */
         function create(params) {

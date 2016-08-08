@@ -12,7 +12,12 @@
 
         $scope.save = save;
 
-        function save() {
+        /**
+         * @param {Object} e
+         */
+        function save(e) {
+            e.preventDefault();
+
             profileService.saveUsersProfileData($scope.user)
                 .then(function(res) {
                     $state.go('profile', {id: 'my'});

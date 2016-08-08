@@ -7,8 +7,6 @@
 
     /* ngInject */
     function AddController($scope, $state, API_URL, addService, Upload, Assert) {
-        /** @public {Boolean} */
-        $scope.newProject = true;
         /** @public {Object} */
         $scope.project = {
             description: {}
@@ -19,10 +17,12 @@
         $scope.onFileSelect = onFileSelect;
 
         /**
-         * @public
          * @param {Boolean} valid
+         * @param {Object} e
          */
-        function create(valid) {
+        function create(valid, e) {
+            e.preventDefault();
+
             if(!valid) {
                 return;
             }
@@ -39,16 +39,15 @@
             };
 
             addService.create(params)
-            	.then(function(res) {
+                .then(function(res) {
                     $scope._createForum(res.data.research_id);
-            	}, function(err) {
-            		console.log(err.message);
-            	});
+                }, function(err) {
+                    console.log(err.message);
+                });
         };
 
         /**
-         * @private
-         * @param {String} id
+         * @param {Number} id
          */
         function _createForum(id){
             var params = {
@@ -57,16 +56,15 @@
             };
 
             addService.createForum(params)
-            	.then(function(res) {
-            		$state.go('project.about', {id: id});
-            	}, function(err) {
-            		console.log(err.message);
-            	});
+                .then(function(res) {
+                    $state.go('project.about', {id: id});
+                }, function(err) {
+                    console.log(err.message);
+                });
         };
 
 
         /**
-         * @public
          * @param {Object} event
          */
         function onFileSelect(event) {

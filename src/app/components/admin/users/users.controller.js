@@ -7,7 +7,7 @@
 
     /* ngInject */
     function UsersController($scope, LOAD_LIMIT, ACTIONS, ROLES, adminService, Assert) {
-    	/** @public {Array<Object>} */
+        /** @public {Array<Object>} */
         $scope.users = [];
         /** @private {Object} */
         $scope.params = {
@@ -34,40 +34,31 @@
         $scope.restore = restore;
         $scope.setChecked = setChecked;
 
-        /**
-         * @private
-         */
         function _init() {
             adminService.getUsers($scope.cursor)
-            	.then(function(res) {
-            		if ($scope.cursor == res.data.cursor) {
-	                    return;
-	                }
-	                if (res.data.users.length < LOAD_LIMIT) {
-	                    $scope.loadMoreAvailable = false;
-	                }
-	                $scope.cursor = res.data.cursor;
+                .then(function(res) {
+                    if ($scope.cursor == res.data.cursor) {
+                        return;
+                    }
+                    if (res.data.users.length < LOAD_LIMIT) {
+                        $scope.loadMoreAvailable = false;
+                    }
+                    $scope.cursor = res.data.cursor;
 
-	                res.data.users.forEach(function(user) {
-	                    $scope.users.push(user);
-	                });
-            	}, function(err) {
-            		$scope.loadMoreAvailable = false;
-            	});
+                    res.data.users.forEach(function(user) {
+                        $scope.users.push(user);
+                    });
+                }, function(err) {
+                    $scope.loadMoreAvailable = false;
+                });
         };
 
-        /**
-         * @public
-         */
         function loadMore() {
             if($scope.loadMoreAvailable) {
                 $scope._init();
             }
         };
 
-        /**
-         * @public
-         */
         function apply() {
             if ($scope.params.selectedUsers.length > 0) {
                 return;
@@ -115,9 +106,6 @@
                 });
         };
 
-        /**
-         * @public
-         */
         function changeRole() {
             switch($scope.params.selectedRole) {
                 case 'admin':
@@ -131,22 +119,15 @@
             }
         };
 
-        /**
-         * @public
-         */
         function search() {
             console.log('Search');
         };
 
-        /**
-         * @public
-         */
         function restore() {
             console.log('restore');
         };
 
         /**
-        * @public
         * @param {Object} user
         */
         function setChecked(user) {

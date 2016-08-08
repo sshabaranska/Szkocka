@@ -16,10 +16,7 @@
             isAdmin: isAdmin 
         };
 
-        /**
-         * public
-         * @return {Promise}
-         */
+        /** @return {Promise} */
         function get() {
             var deferred = $q.defer();
 
@@ -37,18 +34,12 @@
             return deferred.promise;
         };
 
-        /**
-         * public
-         * @return {Object}
-         */
+        /** @return {Object} */
         function getCurrentUser() {
             return currentUser;
         };
 
-        /**
-         * public
-         * @return {Boolean}
-         */
+        /** @return {Boolean} */
         function isAdmin() {
             return currentUser.role === 'admin';
         };

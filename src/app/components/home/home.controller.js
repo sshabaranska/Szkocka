@@ -47,9 +47,6 @@
         $scope.showAllTags = showAllTags;
         $scope.showLessTags = showLessTags;
 
-        /**
-         * @private
-         */
         function _getTags() {
             projectsService.getTags()
                 .then(function(res) {
@@ -65,18 +62,12 @@
                 });
         };
 
-        /**
-         * @public
-         */
         function loadMore() {
             if($scope.loadMoreAvailable) {
                 $scope._init();
             }
         };
 
-        /**
-         * @private
-         */
         function _init() {
             projectsService.query($scope.searchParams)
                 .then(function(res) {
@@ -104,9 +95,6 @@
                 });
         };
 
-        /**
-         * @public
-         */
         function showActiveProjects() {
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
@@ -116,9 +104,6 @@
             $scope._init();
         };
 
-        /**
-         * @public
-         */
         function showAllProjects() {
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
@@ -128,9 +113,6 @@
             $scope._init();
         };
 
-        /**
-         * @public
-         */
         function search() {
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
@@ -139,9 +121,6 @@
             $scope._init();
         };
 
-        /**
-         * @public
-         */
         function clearTag() {
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
@@ -152,7 +131,6 @@
         };
 
         /**
-         * @public
          * @param {String} tag
          */
         function activateTag(tag) {
@@ -164,25 +142,16 @@
             $scope._init();
         };
 
-        /**
-         * @public
-         */
         function showAllTags() {
             $scope.viewTags = $scope.tags;
             $scope.showTagsShortList = false;
         };
 
-        /**
-         * @public
-         */
         function showLessTags() {
             $scope._getTagsToShow();
             $scope.showTagsShortList = true;
         };
 
-        /**
-         * @public
-         */
         function _getTagsToShow() {
             $scope.viewTags = _.take($scope.tags, TAGS_SHORT_LIST_QTY);
         };

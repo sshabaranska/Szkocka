@@ -5,7 +5,7 @@
         </div>
         <p class="text-danger">{{errorMsg}}</p>
         <div class="col-sm-12">
-            <form class="form" ng-submit="save(newsForm.$valid)" name="newsForm" novalidate>
+            <form class="form" ng-submit="save(newsForm.$valid, $event)" name="newsForm" novalidate>
 
                 <div class="form-group">
                     <label>Title<span class="text-danger">*</span></label>

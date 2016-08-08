@@ -7,14 +7,14 @@
 
     /* ngInject */
     function postsService($http, API_URL, Assert, Type) {
-    	return {
-    		getResearches: getResearches,
+        return {
+            getResearches: getResearches,
             getForums: getForums,
             getMessages: getMessages
-    	}
+        }
         /**
-         * @public
          * @param {Object} params
+         * @return {Promise}
          */
         function getResearches(params) {
             Assert.isObject(params, 'Invalid "params" type');
@@ -27,8 +27,8 @@
         }
 
         /**
-         * @public
          * @param {Object} params
+         * @return {Promise}
          */
         function getForums(params) {
             Assert.isObject(params, 'Invalid "params" type');
@@ -41,8 +41,8 @@
         }
 
         /**
-         * @public
          * @param {Object} params
+         * @return {Promise}
          */
         function getMessages(params) {
             Assert.isObject(params, 'Invalid "params" type');

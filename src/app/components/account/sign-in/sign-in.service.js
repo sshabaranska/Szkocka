@@ -9,14 +9,12 @@
     function signInService($http, $q, API_URL, authService, Assert) {
         return {
             /**
-             * Create a new user
-             * public
              * @param  {Object}   user     - user info
              * @return {Promise}
              */
             signIn: function(user) {
                 Assert.isObject(user, 'Invalid "user" type');
-                //return $q.resolve($http.post(API_URL + 'auth/local', user));
+
                 var deferred = $q.defer();
 
                 $http.post(API_URL + 'auth/local', user)
