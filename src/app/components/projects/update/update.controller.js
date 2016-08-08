@@ -57,11 +57,9 @@
 
             projectsService.removeResearcher(params)
                 .then(function(res) {
-                    for (var i = 0; i < $scope.project.researchers.length; i++) {
-                        if ($scope.project.researchers[i].id == researcher.id) {
-                            $scope.project.researchers.splice(i, 1);
-                        }
-                    };
+                    _.remove($scope.project.researchers, function(person) {
+                        return person.id === researcher.id;
+                    });
                 }, function(err) {
                     console.log(err);
                 });
