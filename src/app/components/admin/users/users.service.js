@@ -2,11 +2,11 @@
     'use strict';
 
     angular
-        .module('admin')
-        .factory('adminService', adminService);
+        .module('admin.users')
+        .factory('usersService', usersService);
 
     /* ngInject */
-    function adminService($http, API_URL, Assert, Type) {
+    function usersService($http, API_URL, Assert, Type) {
         return {
             getUsers: getUsers,
             queryUsers: queryUsers,

@@ -6,7 +6,7 @@
         .controller('UsersController', UsersController);
 
     /* ngInject */
-    function UsersController($scope, LOAD_LIMIT, ACTIONS, ROLES, adminService, Assert) {
+    function UsersController($scope, LOAD_LIMIT, ACTIONS, ROLES, usersService, Assert) {
         /** @public {Array<Object>} */
         $scope.users = [];
         /** @private {Object} */
@@ -35,7 +35,7 @@
         $scope.setChecked = setChecked;
 
         function _init() {
-            adminService.getUsers($scope.cursor)
+            usersService.getUsers($scope.cursor)
                 .then(function(res) {
                     if ($scope.cursor == res.data.cursor) {
                         return;
@@ -76,7 +76,7 @@
         };
 
         function _deleteUsers() {
-            adminService.deleteUsers({users_ids: $scope.params.selectedUsers})
+            usersService.deleteUsers({users_ids: $scope.params.selectedUsers})
                 .then(function(res) {
                     $scope.users = [];
                     $scope.cursor = '';
@@ -94,7 +94,7 @@
                 ban_forums: true,
                 ban_messages: false
             }
-            adminService.banUsers(params)
+            usersService.banUsers(params)
                 .then(function(res) {
                     $scope.users = [];
                     $scope.cursor = '';
