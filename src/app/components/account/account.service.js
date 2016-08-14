@@ -13,7 +13,8 @@
         return {
             get: get,
             getCurrentUser: getCurrentUser,
-            isAdmin: isAdmin 
+            isAdmin: isAdmin,
+            clear: clear
         };
 
         /** @return {Promise} */
@@ -42,6 +43,11 @@
         /** @return {Boolean} */
         function isAdmin() {
             return currentUser.role === 'admin';
+        };
+
+        /** @return {Boolean} */
+        function clear() {
+            currentUser = {};
         };
     }
 })();

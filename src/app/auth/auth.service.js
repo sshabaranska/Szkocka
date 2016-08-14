@@ -4,7 +4,7 @@
         .factory('authService', authService);
 
     /* ngInject */
-    function authService($http, $cookies, CacheStore, Assert) {
+    function authService($http, $cookies, accountService, Assert) {
         var isAuthorized = false;
         return {
             auth: auth,
@@ -22,7 +22,7 @@
         function unAuth() {
             isAuthorized = false;
             $cookies.remove('token');
-            CacheStore.clear();
+            accountService.clear();
             $http.defaults.headers.common['Authorization'] = '';
         }
 
