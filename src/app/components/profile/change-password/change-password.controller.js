@@ -29,6 +29,7 @@
             profileService.changePassword($scope.data)
                 .then(function(res) {
                     $scope.message = 'Password successfully changed.';
+                    $scope.data = {};
                 }, function(err) {
                     $scope.message = null;
                     $scope.errorMsg = 'Incorrect password';

@@ -6,9 +6,12 @@
         .controller('ProjectController', ProjectController);
 
     /* ngInject */
-    function ProjectController($scope, $state, accountService, ProjectResolver, projectsService, Assert, Type) {
+    function ProjectController($scope, $state, $stateParams, accountService, 
+        projectsService, Assert, Type) {
+        /** @private {Number} */
+        $scope.projectId = $stateParams.id;
         /** @private {Object} */
-        $scope.project = ProjectResolver.data;
+        $scope.project = {}
         /** @public {Object} */
         $scope.user = accountService.getCurrentUser();
         /** @public {Array<Object>} */
@@ -26,14 +29,20 @@
         $scope.ignore = ignore;
 
         function _init() {
-            if($scope.project.relationship_type === 'NONE') {
-                $scope.canJoinProject = true;
-            }
+            projectsService.getProjectById($scope.projectId).then(function(res) {
+                $scope.project = res.data;
 
-            if($scope.user && $scope.user._id == $scope.project.supervisor.id ){
-                $scope.isSupervisor = true;
-                $scope._getJoinRequests();
-            }
+                if($scope.project.relationship_type === 'NONE') {
+                    $scope.canJoinProject = true;
+                }
+
+                if($scope.user && $scope.user._id == $scope.project.supervisor.id ){
+                    $scope.isSupervisor = true;
+                    $scope._getJoinRequests();
+                }
+            }, function(err) {
+                console.log(err);
+            });
         };
 
         function _getJoinRequests() {
@@ -77,7 +86,7 @@
 
             projectsService.aproveResearcher(params)
                 .then(function(res) {
-                     $scope._getJoinRequests();
+                    $scope._init();
                 }, function(err) {
                     console.log(err.message);
                 });

@@ -11,6 +11,10 @@ var gulp = require('gulp'),
     eventStream = require('event-stream'),
     environments = require('gulp-environments');
 
+var development = environments.development;
+var production = environments.production;
+environments.current(production);
+
 var destination = environments.production() ? config.release : config.dev;
 
 gulp.task('clean', clean);

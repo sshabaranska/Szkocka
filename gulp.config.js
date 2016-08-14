@@ -57,7 +57,7 @@ module.exports = function() {
             fonts: 'release/fonts',
             templates: 'release/layout',
             vendors: 'release/vendor',
-            kendoSprite: 'dev/stylesheets/Default'
+            kendoSprite: 'release/css/Default'
         }
     };
 };

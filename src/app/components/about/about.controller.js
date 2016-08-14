@@ -9,7 +9,9 @@
     function AboutController($scope, aboutService, accountService, AboutContentResolver) {
         $scope.showEditButton = accountService.isAdmin();
         $scope.description = AboutContentResolver.data.content;
-        $scope.editedDescription = $scope.description;
+        $scope.data = {
+            editedDescription: $scope.description
+        };
         $scope.showEditableTexarea = false;
 
         $scope.save = save;
@@ -20,9 +22,9 @@
         function save(e) {
             e.preventDefault();
             aboutService.update({
-                    content: $scope.editedDescription
+                    content: $scope.data.editedDescription
                 }).then(function(response){
-                        $scope.description = $scope.editedDescription;
+                        $scope.description = $scope.data.editedDescription;
                         $scope.showEditableTexarea = false;
                         //TODO: Show success message in some dialog window or toast
                         console.log('Saved...');

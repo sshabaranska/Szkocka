@@ -25,8 +25,6 @@
     function freeAreaResolver(authService, accountService) {
         if (authService.isAuth()) {
             return accountService.get();
-        } else {
-            return;
         }
     }
 })();
