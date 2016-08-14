@@ -9,7 +9,9 @@
     function config($stateProvider) {
         $stateProvider.state('free-area', {
             abstract: true,
-            parent: 'layouts',
+            resolve: {
+                freeAreaResolver: freeAreaResolver
+            },
             views: {
                 content: {
                     templateUrl: 'layouts/free-area/free-area.html',
@@ -17,5 +19,14 @@
                 }
             }
         });
+    }
+
+    /* ngInject */
+    function freeAreaResolver(authService, accountService) {
+        if (authService.isAuth()) {
+            return accountService.get();
+        } else {
+            return;
+        }
     }
 })();

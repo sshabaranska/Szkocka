@@ -9,7 +9,6 @@
     function config($stateProvider) {
         $stateProvider.state('restricted-area', {
             abstract: true,
-            parent: 'layouts',
             resolve: {
                 $q: '$q',
                 $timeout: '$timeout',
