@@ -6,7 +6,7 @@
         .controller('HomeController', HomeController);
 
     /* ngInject */
-    function HomeController($scope, $rootScope, projectsService, LOAD_LIMIT,
+    function HomeController($scope, $rootScope, homeService, LOAD_LIMIT,
         TAGS_SHORT_LIST_QTY, CAROUSEL_INTERVAL, Assert, Type) {
         /** @public {Array<Object>} */
         $scope.latest5 = [];
@@ -48,7 +48,7 @@
         $scope.showLessTags = showLessTags;
 
         function _getTags() {
-            projectsService.getTags()
+            homeService.getTags()
                 .then(function(res) {
                     $scope.tags = _.uniq(res.data.tags);
 
@@ -69,7 +69,7 @@
         };
 
         function _init() {
-            projectsService.query($scope.searchParams)
+            homeService.query($scope.searchParams)
                 .then(function(res) {
                     if(_.find($scope.projectsList, function(proj) {
                         return proj.id == res.data.researches[0].id; })
