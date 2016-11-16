@@ -6,24 +6,17 @@
         .controller('HomeController', HomeController);
 
     /* ngInject */
-    function HomeController($scope, $rootScope, homeService, LOAD_LIMIT,
-        TAGS_SHORT_LIST_QTY, CAROUSEL_INTERVAL, Assert, Type) {
-        /** @public {Array<Object>} */
-        $scope.latest5 = [];
-        /** @private {Number} */
-        $scope.carouselInterval = CAROUSEL_INTERVAL;
+    function HomeController($scope, homeService, LOAD_LIMIT, Assert, Type, $mdToast) {
         /** @public {Array<Object>} */
         $scope.projectsList = [];
         /** @private {Array<Object>} */
-        $scope.tags = [];
-        /** @public {Array<Object>} */
-        $scope.viewTags = [];
+        $scope.tag = [];
         /** @public {Boolean} */
         $scope.showTagsShortList = true;
         /** @public {Boolean} */
         $scope.loadMoreAvailable = true;
-        /** @private {String} */
-        $scope.filterEventName = 'projectsFilter';
+        /** @private {Boolean} */
+        $scope._isBusy = false;
         /** @private {Object} */
         $scope.searchParams = {
             keyword: null,
@@ -31,32 +24,29 @@
             tag: null,
             page: 0
         };
-
-        /** @public {String} */
-        $scope.errorMsg = '';
+        /** @public {Boolean} */
+        $scope.showSearchInput = false;
+        /** @private {String} */
+        $scope.currentNavItem = 'active';
+        /** @public {Boolean} */
+        $scope.isLoading = true;
+        /** @public {Boolean} */
+        $scope.tagsAreVisible = false;
 
         $scope._getTags = _getTags;
-        $scope._getTagsToShow = _getTagsToShow;
         $scope._init = _init;
         $scope.loadMore = loadMore;
         $scope.showActiveProjects = showActiveProjects;
         $scope.showAllProjects = showAllProjects;
         $scope.search = search;
+        $scope.showTags = showTags;
         $scope.clearTag = clearTag;
         $scope.activateTag = activateTag;
-        $scope.showAllTags = showAllTags;
-        $scope.showLessTags = showLessTags;
 
         function _getTags() {
             homeService.getTags()
                 .then(function(res) {
                     $scope.tags = _.uniq(res.data.tags);
-
-                    if ($scope.tags.length > TAGS_SHORT_LIST_QTY) {
-                        $scope._getTagsToShow();
-                    } else {
-                        $scope.viewTags = $scope.tags;
-                    }
                 }, function(err) {
                     console.log(err.message);
                 });
@@ -69,29 +59,34 @@
         };
 
         function _init() {
+            $scope.isLoading = true;
+
+            // fix to prevent multiple requests from ngInfinitiveScroll
+            if ($scope._isBusy) return;
+            $scope._isBusy = true;
             homeService.query($scope.searchParams)
                 .then(function(res) {
-                    if(_.find($scope.projectsList, function(proj) {
-                        return proj.id == res.data.researches[0].id; })
-                        ) {
-                        return;
-                    }
+                    $scope.isLoading = false;
+
                     if (res.data.researches.length < LOAD_LIMIT) {
                         $scope.loadMoreAvailable = false;
+                    }
+
+                    if(_.find($scope.projectsList, function(proj) {
+                        return res.data.researches.length > 0 && proj.id == res.data.researches[0].id; })
+                        ) {
+                        return;
                     }
 
                     res.data.researches.forEach(function(proj){
                         $scope.projectsList.push(proj);
                     });
-
-                    $scope.latest5 = _.take($scope.projectsList, 5);
                     $scope.searchParams.page = $scope.searchParams.page + 1;
-                    
-                    // fire event to redraw main image slider carousel
-                    $rootScope.$broadcast($scope.filterEventName);
+                    $scope._isBusy = false;
                 }, function(err) {
-                    $scope.errorMsg = err.message;
+                    $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
+                    $scope._isBusy = false;
                 });
         };
 
@@ -99,8 +94,10 @@
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
+            $scope.searchParams.tag = null;
             $scope.searchParams.status = 'active';
             $scope.loadMoreAvailable = true;
+            $scope.tagsAreVisible = false;
             $scope._init();
         };
 
@@ -109,16 +106,24 @@
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
             $scope.searchParams.status = null;
+            $scope.searchParams.tag = null;
             $scope.loadMoreAvailable = true;
+            $scope.tagsAreVisible = false;
             $scope._init();
         };
 
-        function search() {
-            $scope.projectsList = [];
-            $scope.searchParams.page = 0;
-            $scope.searchParams.tag = null;
-            $scope.loadMoreAvailable = true;
-            $scope._init();
+        function search(e) {
+            if (e.keyCode === 13) {
+                $scope.projectsList = [];
+                $scope.searchParams.page = 0;
+                $scope.searchParams.tag = null;
+                $scope.loadMoreAvailable = true;
+                $scope._init();
+            }
+        };
+
+        function showTags() {
+            $scope.tagsAreVisible = true;
         };
 
         function clearTag() {
@@ -137,23 +142,10 @@
             $scope.projectsList = [];
             $scope.searchParams.page = 0;
             $scope.searchParams.keyword = null;
+            $scope.searchParams.status = null;
             $scope.searchParams.tag = tag;
             $scope.loadMoreAvailable = true;
             $scope._init();
-        };
-
-        function showAllTags() {
-            $scope.viewTags = $scope.tags;
-            $scope.showTagsShortList = false;
-        };
-
-        function showLessTags() {
-            $scope._getTagsToShow();
-            $scope.showTagsShortList = true;
-        };
-
-        function _getTagsToShow() {
-            $scope.viewTags = _.take($scope.tags, TAGS_SHORT_LIST_QTY);
         };
 
         $scope._init();

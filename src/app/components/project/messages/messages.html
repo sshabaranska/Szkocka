@@ -1,0 +1,77 @@
+<div class="header messages">
+    <div class="info" layout="column"></div>
+    <md-content class=" md-container">
+        <md-card layout="row" layout-wrap>
+            <div flex="100">
+                <div class="activeForum">
+                    <md-list>
+                        <md-list-item class="md-2-line md-long-text">
+                            <md-icon class="back" ui-sref="project({id: projectId})">chevron_left</md-icon>
+                            <div class="md-list-item-text">
+                                <h3 ng-if="!message.showEditedTextaria">{{activeForum.createdBy.name}} <small> on <i><i>{{activeForum.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i></i></small></h3> 
+                                <h1>{{activeForum.subject}}</h1>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+                <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+                    <md-nav-item md-nav-click="goto('comments')" name="comments">Comments</md-nav-item>
+                </md-nav-bar>
+                <md-list infinite-scroll="loadMore()" infinite-scroll-distance="1" infinite-scroll-disabled="!loadMoreAvailable"
+                    infinite-scroll-immediate-check="false">
+                    <md-list-item class="md-2-line md-long-text"
+                                    ng-repeat="message in activeForumMessages">
+
+                        <div class="md-list-item-text">
+                            <h3 ng-if="!message.showEditedTextaria">{{message.createdBy.name}} <small> on <i><i>{{message.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</i></i></small></h3> 
+                            <p ng-if="!message.showEditedTextaria" mathjax-bind
+                                ng-bind-html="message.message"></p>
+                            <div ng-if="message.showEditedTextaria">
+                                <textarea kendo-editor k-ng-model="message.messageToEdit"></textarea>
+                            </div>
+                        </div>
+
+                        <md-button class="md-secondary md-icon-button"
+                                ng-if="!message.showEditedTextaria && (message.createdBy.id === user._id || isSupervisor || isAdmin)"
+                                ng-click="message.showEditedTextaria = !message.showEditedTextaria"
+                                aria-label="edit">
+                            <md-icon>edit</md-icon>
+                        </md-button>
+                        <md-button class="md-secondary md-icon-button" ng-click="confirmDelete(message, $event)"
+                                ng-if="!message.showEditedTextaria && (message.createdBy.id === user._id || isSupervisor || isAdmin)"
+                                aria-label="close">
+                            <md-icon>close</md-icon>
+                        </md-button>
+
+                        <md-button class="md-secondary md-icon-button"
+                                ng-if="message.showEditedTextaria"
+                                ng-click="message.showEditedTextaria = !message.showEditedTextaria"
+                                aria-label="close">
+                            <md-icon>close</md-icon>
+                        </md-button>
+                        <md-button class="md-secondary md-icon-button"
+                                ng-if="message.showEditedTextaria"
+                                ng-click="updateMessage(message, $event)"
+                                aria-label="check">
+                            <md-icon>check</md-icon>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+                <div layout="row" layout-sm="column" layout-align="space-around" class="progress-circular" ng-if="isLoading">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+                <div class="postMessage">
+                    <md-input-container class="md-block">
+                        <label class="detailed-description">Add Comment</label>
+                        <textarea kendo-editor k-ng-model="newMessage"></textarea>
+                    </md-input-container>
+                    <section layout="row">
+                        <div flex="50" class="md-block">{{message}}</div>
+                        <md-button flex="50" class="md-primary md-raised md-block"
+                                    ng-click="postMessage(newMessage, $event)">POST MESSAGE</md-button>
+                    </section>
+                </div>
+            </div>
+        </md-card>
+    </md-content>
+</div>

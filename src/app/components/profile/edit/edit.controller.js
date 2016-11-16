@@ -6,7 +6,11 @@
         .controller('ProfileEditController', ProfileEditController);
 
     /* ngInject */
-    function ProfileEditController($scope, $state, profileService, Type, userProfileResolver) {
+    function ProfileEditController($scope, $state, $stateParams, profileService, Type,
+        userProfileResolver, accountService, errorService, linkify) {
+
+        /** @public {Boolean} */
+        $scope.isMyProfile = $stateParams.id == accountService.getCurrentUser()._id;
         /** @public {Object} */
         $scope.user = userProfileResolver.data;
 
@@ -15,15 +19,28 @@
         /**
          * @param {Object} e
          */
-        function save(e) {
+        function save(valid, e) {
             e.preventDefault();
-
-            profileService.saveUsersProfileData($scope.user)
-                .then(function(res) {
-                    $state.go('profile', {id: 'my'});
-                }, function(err) {
-                    console.log(err.message);
-                });
+            if (!valid) {
+                errorService.showError('Form is not valid');
+                return;
+            }
+            $scope.user.cv = linkify.linkifyString($scope.user.cv);
+            if ($scope.isMyProfile) {
+                profileService.saveMyProfileData($scope.user)
+                    .then(function(res) {
+                        $state.go('profile', {id: 'my'});
+                    }, function(err) {
+                        console.log(err.message);
+                    });
+            } else {
+                profileService.saveUsersProfileData($scope.user)
+                    .then(function(res) {
+                        $state.go('profile', {id: $scope.user.id});
+                    }, function(err) {
+                        console.log(err.message);
+                    });
+            }
         };
     }
 })();

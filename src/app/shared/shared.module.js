@@ -1,5 +1,7 @@
 angular
     .module('shared', [
         'navigation-bar',
-        'utils'
+        'utils',
+        'error-handler',
+        'footer'
     ]);

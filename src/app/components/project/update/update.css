@@ -1,0 +1,19 @@
+.update-project {}
+.update-project md-input-container {
+	display: block;
+}
+.update-project md-list h3 {
+	margin-bottom: 0;
+}
+.update-project .add-margin-top {
+	margin-top: 36px;
+}
+.update-project .md-list-item-text {
+	cursor: pointer;
+}
+.update-project md-list-item {
+    padding-right: 0;
+}
+.update-project .detailed-desc {
+    margin-bottom: 0;
+}

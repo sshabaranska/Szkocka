@@ -1,0 +1,94 @@
+<div class="header update-project">
+    <div class="info" layout="column">
+        <h1>Update project</h1>
+    </div>
+
+    <md-content layout-padding class="md-container">
+        <form ng-submit="update(form.$valid, $event)" name="form" novalidate layout-wrap layout="row" layout-align="end start">
+            <div flex="50" flex-xs="100" class="add-padding-right">
+                <div class="md-block select-image" ngf-select="onFileSelect($event)" 
+                            accept="image/*"
+                            ng-if="!project.image_url">
+                    <div class="proj-image">Project Image</div>
+                </div>
+                <img class="preview" ng-src="{{project.image_url}}" 
+                        ngf-select="onFileSelect($event)" 
+                        accept="image/*">
+                <md-input-container>
+                    <label>Change status</label>
+                    <md-select name="favoriteColor" ng-model="project.status">
+                        <md-option ng-repeat="status in statuses" value="{{status.name}}" 
+                                ng-selected="status.name === project.status">{{status.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-list ng-if="project.researchers.length > 0">
+                    <md-subheader class="md-no-sticky">Researchers</md-subheader>
+                    <md-list-item class="md-1-line" ng-repeat="researcher in project.researchers">
+                        <div class="md-list-item-text" >
+                            <h3 ui-sref="profile({id: researcher.id})"> {{researcher.name}} </h3>
+                        </div>
+                        <md-button class="md-secondary md-icon-button" ng-click="confirmRemove(researcher, $event)" aria-label="md-close">
+                            <md-icon aria-label="lose" class="delete" >
+                                close
+                            </md-icon>
+                        </md-button>
+                        <md-divider ></md-divider>
+                    </md-list-item>
+                </md-list>
+
+                <div layout="row" layout-wrap class=" add-margin-top" ng-if="isAdmin">
+                    <md-input-container flex="75">
+                        <label>Change Supervisor (email)</label>
+                        <input type="email" ng-model="data.newSupervisor">
+                    </md-input-container>
+                    <span flex="25">
+                        <md-button style="width:100%" class="md-primary md-raised" ng-click ="changeSupervisor()">CHANGE</md-button>
+                    </span>
+                </div>
+                <div layout="row" layout-wrap ng-if="isAdmin">
+                    <md-input-container flex="75" flex-xs="75">
+                        <label>Add Researcher (email)</label>
+                        <input type="email" ng-model="data.newResearcher">
+                    </md-input-container>
+                    <span flex="25" flex-xs="25">
+                        <md-button style="width:100%" class="md-primary md-raised" ng-click="addResearcher()">ADD</md-button>
+                    </span>
+                </div>
+            </div>
+            <div flex="50" flex-xs="100">
+                <md-input-container class="md-block" layout-align="end start">
+                    <label>Project name</label>
+                    <input type="text" name="title" ng-model="project.title" required>
+                    <div ng-messages="form.title.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Shord Description</label layout-align="end start">
+                    <textarea name="brief" rows="4" ng-model="project.description.brief" required></textarea>
+                    <div ng-messages="form.brief.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block detailed-desc">
+                    <label class="detailed-description">Detailed Description</label>
+                    <textarea kendo-editor k-ng-model="project.description.detailed" name="detailed" required></textarea>
+                    <div ng-messages="form.detailed.$error">
+                        <div ng-message="required">This field is required</div>
+                    </div>
+                </md-input-container>
+                <md-chips
+                    ng-model="project.tags"
+                    md-removable="true"
+                    placeholder="Enter a tag and press 'Enter'"
+                    delete-button-label="Remove Tag"
+                    delete-hint="Press delete to remove tag"
+                    secondary-placeholder="+Tag">
+                </md-chips>
+            </div>
+            <md-button type="submit" class="md-primary md-raised">SUBMIT</md-button>
+        </form>
+    </md-content>
+</div>

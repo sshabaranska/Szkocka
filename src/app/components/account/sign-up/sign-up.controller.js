@@ -6,11 +6,9 @@
         .controller('SignUpController', SignUpController);
 
     /* ngInject */
-    function SignUpController($scope, $state, signUpService, Type, Assert) {
+    function SignUpController($scope, $state, signUpService, Type, Assert, errorService, linkify) {
         /** @public {Object} */
         $scope.user = {};
-        /** @public {Object} */
-        $scope.errors = {};
 
         $scope.signUp = signUp;
 
@@ -24,15 +22,17 @@
             event.preventDefault();
 
             if (!valid) {
-                $scope.errors.valid = 'Form is not valid';
+                errorService.showError('Form is not valid');
                 return;
+            }
+            if (Type.isString ($scope.user.cv)) {
+                $scope.user.cv = linkify.linkifyString($scope.user.cv);
             }
             signUpService.signUp($scope.user)
                 .then(function(){
                         $state.go('home');
                     }, function(err){
-                        $scope.errors.other = err.message;
-                        console.log(err.message);
+                        console.log(err.data.message);
                     });
             }
     }

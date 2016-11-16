@@ -6,13 +6,12 @@ angular
         'ngMessages',
         'ngSanitize',
         'ngFileUpload',
-        'ngTagsInput',
         'angularMoment',
         'ui.bootstrap',
+        'ngMaterial',
 
         'kendo.directives',
-        'lazy-scroll',
-        //'mock',
+        'infinite-scroll',
 
         'auth',
         'layouts',
@@ -25,7 +24,7 @@ angular
         'home',
         'news',
         'profile',
-        'projects',
+        'project',
 
         'templates'
     ]);

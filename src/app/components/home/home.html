@@ -1,81 +1,51 @@
-<section class="main-carousel container">
-      <div class="row">
-        <div id="carousel-wrapper" ng-carousel-wrapper>
-            <carousel interval="carouselInterval">
-                <slide ng-repeat="project in latest5" active="slide.active">
-                      <img ng-src="{{project.image_url}}"/>
-                      <div class="overlay"></div>
-                      <div class="carousel-caption">
-                        <h4>{{project.title}}</h4>
-                        <a ui-sref="project({id: project.id})" class="btn btn-primary">Read more</a>
-                      </div>
-                </slide>
-            </carousel>
-        </div>
-      </div>
-</section>
-
-<section class="projects container">
-    <div class="row">
-        <h2 class="projects-list-title">Projects</h2>
-        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-            <div lazy-scroll="loadMore()" lazy-scroll-trigger="90">
-                <ul class="list-unstyled">
-                    <li class="project-block" ng-repeat="project in projectsList">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                                <a ui-sref="project({id: project.id})">
-                                    <div class="project-block-image" style="background-image: url('{{project.image_url}}');">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8">
-                                <div class="project-block-info">
-                                    <h2>
-                                        <a ui-sref="project({id: project.id})">{{project.title}}</a>
-                                    </h2>
-                                    <div class="project-info-labels">
-                                        <span class="label label-primary" ng-repeat-start="tag in project.tags">{{tag}}</span>
-                                        <span ng-repeat-end></span>
-                                    </div>
-                                    <div class="project-info-brief-descr">
-                                        <p ng-bind-html="project.description.brief"></p>
-                                    </div>
-                                    <a ui-sref="project({id: project.id})">More info &rarr;</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 search-area">
-            <h4>Search Criterias: </h4>
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == 'active'}"
-                        ng-click="showActiveProjects()">Active</button>
-                <button type="button" class="btn btn-default" ng-class="{'active': searchParams.status == null}"
-                    ng-click="showAllProjects()">All</button>
-            </div>
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" ng-model="searchParams.keyword">
-                    <button type="submit" class="btn btn-default" ng-click="search()">Search</button>
-                </div>
-            </form>
-            <section class="tags">
-                <div class="tags-title">
-                    <h4>Tags:</h4>
-                </div>
-                <div class="tags-list">
-                    <a ng-if="searchParams.tag" class="tag tag-show-all" ng-click="clearTag()">Show All</a>
-                    <a ng-repeat="tag in viewTags" class="tag" ng-click="activateTag(tag)" ng-class="{'selected': tag == searchParams.tag}">{{tag}}</a>
-                    <div></div>
-                    <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && showTagsShortList" ng-click="showAllTags()">See all tags</a>
-                    <a type="button" class="btn btn-link btn-block" ng-if="tags.length > 15 && !showTagsShortList" ng-click="showLessTags()">Hide all tags</a>
-                </div>
-            </section>
-        </div>
+<div class="top-image">
+    <div class="info" layout="column">
+        <h1 hide-xs>explore your projects</h1>
+        <h3 hide-xs>Connect with researches, share data and knowledge, get funded</h3>
+        <md-button class="md-raised md-primary" ui-sref="add">Add Project</md-button>
     </div>
-</section>
+    <img src="img/hero-bg-2x.png">
+</div>
+
+<md-content class="itemsList md-container">
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="goto('active')" ng-click="showActiveProjects()" name="active">Active</md-nav-item>
+        <md-nav-item md-nav-click="goto('all')" ng-click="showAllProjects()" name="all">All</md-nav-item>
+        <md-nav-item md-nav-click="goto('tags')" ng-click="showTags()" name="tags" hide-xs>Search By Tags</md-nav-item>
+        <md-input-container md-theme="input" class="searchInput" flex ng-if="showSearchInput">
+            <label>&nbsp;</label>
+            <input placeholder="Search" ng-model="searchParams.keyword" ng-keypress="search($event)">
+        </md-input-container>
+        <md-icon aria-label="search" class="search" ng-click="showSearchInput = !showSearchInput">
+            search
+        </md-icon>
+    </md-nav-bar>
+
+    <div class="clearfix" ng-if="tagsAreVisible">
+        <md-button class="md-mini tag tag-show-all" ng-if="searchParams.tag" ng-click="clearTag()">Unselect Tag</md-button>
+        <md-button class="md-mini tag" ng-repeat="tag in ::tags" ng-click="activateTag(tag)" ng-class="{'selected': tag == searchParams.tag}">{{tag}}</md-button>
+    </div>
+    <md-content layout="row" layout-wrap infinite-scroll="loadMore()" infinite-scroll-distance="1" 
+            infinite-scroll-disabled="!loadMoreAvailable" infinite-scroll-immediate-check="false">
+        <div flex="33" flex-sm="50" flex-xs="100" ng-repeat="project in projectsList">
+            <md-card  ui-sref="project({id: project.id})">
+                <div class="card-image" style="background-image: url({{project.image_url}});"></div>
+                <i class="date">{{project.created | date:"DD/mm/yyyy 'at' h:mma"}}</i>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{project.title}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p ng-bind-html="project.description.brief" class="shortDescription"></p>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button class="md-mini tag" ng-repeat="tag in ::project.tags">{{tag}}</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </md-content>
+    <div layout="row" layout-sm="column" layout-align="space-around" class="progress-circular" ng-if="isLoading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</md-content>

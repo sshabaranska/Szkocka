@@ -4,16 +4,13 @@ module.exports = function() {
             index: 'src/index.html',
             scripts: 'src/app/**/*.js',
             stylesheets: [
-                'node_modules/ng-tags-input/build/ng-tags-input.min.css',
+                'node_modules/angular-material/angular-material.css',
                 'src/assets/**/*.css',
-                //'node_modules/bootstrap/less/bootstrap.less',
-                //'node_modules/font-awesome/less/font-awesome.less',
-                'src/app/app.less'
-                //'src/app/**/*.less'
+                'src/app/app.css',
+                'src/app/**/*.css'
             ],
             images: 'src/assets/images/**/*',
             fonts: [
-                'node_modules/bootstrap/fonts/**/*',
                 'node_modules/font-awesome/fonts/**/*'
                 ],
             templates: 'src/app/**/*.html',
@@ -28,22 +25,24 @@ module.exports = function() {
                 'node_modules/angular-messages/angular-messages.js',
                 'node_modules/angular-resource/angular-resource.js',
                 'node_modules/angular-sanitize/angular-sanitize.js',
+                'node_modules/angular-aria/angular-aria.js',
+                'node_modules/angular-animate/angular-animate.js',
+                'node_modules/angular-material/angular-material.js',
                 'node_modules/angular-ui-router/release/angular-ui-router.js',
-                'node_modules/angular-mocks/angular-mocks.js',
                 'node_modules/lodash/dist/lodash.min.js',
                 'node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
                 'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
-                'node_modules/ng-tags-input/build/ng-tags-input.min.js',
+                'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.js',
                 'src/assets/lib/**/*.js'
             ],
-            kendoSprite: 'src/assets/lib/kendo/css/Default/sprite.png'
+            kendoSprite: 'src/assets/lib/kendo/css/Default/**/*.png'
         },
         dev: {
             index: 'dev',
             scripts: 'dev/app',
             less: 'dev/less',
             stylesheets: 'dev/stylesheets',
-            images: 'dev/images',
+            images: 'dev/img',
             fonts: 'dev/fonts',
             templates: 'dev/app',
             vendors: 'dev/vendor',

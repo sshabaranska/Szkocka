@@ -1,0 +1,48 @@
+.top-image {
+    position: relative;
+}
+.top-image img {
+    width: 100%;
+    height: auto;
+}
+.top-image .info {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 15%;
+    color: #fff;
+    text-align: center;
+}
+.top-image h1 {
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px #000000;
+}
+.top-image h3 {
+    font-weight: 300;
+    text-shadow: 1px 1px 3px #000000;
+}
+.itemsList .md-default-theme, md-content.itemsList {
+    background-color: #fff;
+}
+.itemsList .search {
+    float: right;
+    cursor: pointer;
+    margin-right: 14px;
+    margin-top: 15px;
+}
+.itemsList .searchInput {
+    margin-top: 8px;
+}
+.itemsList md-card {
+    cursor: pointer;
+}
+@media (min-width: 768px) {
+    .top-image .info {
+        bottom: 30%;
+    }
+}
+@media (min-width: 1200px) {
+    .top-image .info {
+        bottom: 40%;
+    }
+}

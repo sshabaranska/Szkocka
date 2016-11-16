@@ -6,50 +6,64 @@
         .controller('UsersController', UsersController);
 
     /* ngInject */
-    function UsersController($scope, LOAD_LIMIT, ACTIONS, ROLES, usersService, Assert) {
+    function UsersController($scope, LOAD_LIMIT, ACTIONS, usersService, Assert) {
         /** @public {Array<Object>} */
         $scope.users = [];
         /** @private {Object} */
         $scope.params = {
           selectedAction: null,
-          selectedRole: null,
           selectedUsers: []
         };
         /** @private {Object} */
-        $scope.cursor = '';
-        /** @private {String} */
+        $scope.searchParams = {
+            cursor: '',
+            keyword: null
+        };
+        /** @private {Boolean} */
         $scope.loadMoreAvailable = true;
+        /** @private {Boolean} */
+        $scope._isBusy = false;
+        /** @private {Boolean} */
+        $scope.isLoading = false;
         /** @public {Array<Object>} */
-        $scope.actions = ACTIONS; 
-        /** @public {Array<Object>} */
-        $scope.roles = ROLES;
+        $scope.actions = ACTIONS;
+
 
         $scope._init = _init;
         $scope._deleteUsers = _deleteUsers;
         $scope._banUsers = _banUsers;
         $scope.loadMore = loadMore;
         $scope.apply = apply;
-        $scope.changeRole = changeRole;
         $scope.search = search;
         $scope.restore = restore;
         $scope.setChecked = setChecked;
 
         function _init() {
-            usersService.getUsers($scope.cursor)
+            $scope.isLoading = true;
+
+            // fix to prevent multiple requests from ngInfinitiveScroll
+            if ($scope._isBusy) return;
+            $scope._isBusy = true;
+
+            usersService.queryUsers($scope.searchParams)
                 .then(function(res) {
-                    if ($scope.cursor == res.data.cursor) {
+                    $scope.isLoading = false;
+                    if ($scope.searchParams.cursor == res.data.cursor) {
                         return;
                     }
                     if (res.data.users.length < LOAD_LIMIT) {
                         $scope.loadMoreAvailable = false;
                     }
-                    $scope.cursor = res.data.cursor;
+                    $scope.searchParams.cursor = res.data.cursor;
 
                     res.data.users.forEach(function(user) {
                         $scope.users.push(user);
                     });
+                    $scope._isBusy = false;
                 }, function(err) {
+                    $scope.isLoading = false;
                     $scope.loadMoreAvailable = false;
+                    $scope._isBusy = false;
                 });
         };
 
@@ -60,7 +74,7 @@
         };
 
         function apply() {
-            if ($scope.params.selectedUsers.length > 0) {
+            if ($scope.params.selectedUsers.length === 0) {
                 return;
             }
             switch($scope.params.selectedAction) {
@@ -79,7 +93,8 @@
             usersService.deleteUsers({users_ids: $scope.params.selectedUsers})
                 .then(function(res) {
                     $scope.users = [];
-                    $scope.cursor = '';
+                    $scope.searchParams.cursor = '';
+                    $scope.searchParams.keyword = null;
                     $scope.loadMoreAvailable = true;
                     $scope.params.selectedUsers = [];
                     $scope._init();
@@ -97,7 +112,8 @@
             usersService.banUsers(params)
                 .then(function(res) {
                     $scope.users = [];
-                    $scope.cursor = '';
+                    $scope.searchParams.cursor = '';
+                    $scope.searchParams.keyword = null;
                     $scope.loadMoreAvailable = true;
                     $scope.params.selectedUsers = [];
                     $scope._init();
@@ -106,25 +122,25 @@
                 });
         };
 
-        function changeRole() {
-            switch($scope.params.selectedRole) {
-                case 'admin':
-                    console.log('Admin');
-                    break;
-                case 'user':
-                    console.log('User');
-                    break;
-                default:
-                    return;
+        function search(e) {
+            if (e.keyCode === 13) {
+                $scope.users = [];
+                $scope.searchParams.cursor = '';
+                $scope.loadMoreAvailable = true;
+                $scope._init();
             }
         };
 
-        function search() {
-            console.log('Search');
-        };
-
-        function restore() {
-            console.log('restore');
+        /**
+        * @param {Object} user
+        */
+        function restore(user) {
+            usersService.restoreUser(user.id)
+                .then(function(res) {
+                    user.status = 'ACTIVE';
+                }, function(err) {
+                    console.log(err);
+                });
         };
 
         /**

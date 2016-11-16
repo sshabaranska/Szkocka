@@ -6,7 +6,7 @@
         .controller('AboutController', AboutController);
 
     /* ngInject */
-    function AboutController($scope, aboutService, accountService, AboutContentResolver) {
+    function AboutController($scope, aboutService, accountService, AboutContentResolver, linkify) {
         $scope.showEditButton = accountService.isAdmin();
         $scope.description = AboutContentResolver.data.content;
         $scope.data = {
@@ -18,9 +18,9 @@
         $scope.edit = edit;
         $scope.cancel = cancel;
 
-
         function save(e) {
             e.preventDefault();
+            $scope.data.editedDescription = linkify.linkifyString($scope.data.editedDescription);
             aboutService.update({
                     content: $scope.data.editedDescription
                 }).then(function(response){
@@ -29,7 +29,6 @@
                         //TODO: Show success message in some dialog window or toast
                         console.log('Saved...');
                     }, function(error){
-                        //TODO: Show server error in some dialog window or toast
                         console.log(error.message);
                     });
         }

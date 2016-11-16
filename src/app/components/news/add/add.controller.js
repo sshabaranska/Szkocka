@@ -6,11 +6,10 @@
         .controller('NewsAddController', NewsAddController);
 
     /* ngInject */
-    function NewsAddController($scope, $state, newsService, Upload, API_URL, Assert, Type) {
+    function NewsAddController($scope, $state, newsService, Upload, API_URL, Assert, Type,
+    errorService, linkify) {
         /** @public {Object} */
         $scope.newsToAdd = {};
-        /** @public {String} */
-        $scope.errorMsg = null;
 
         $scope.save = save;
         $scope.cancel = cancel;
@@ -25,15 +24,17 @@
 
             if (!valid || Type.isUndefined($scope.newsToAdd.body) ||
                 $scope.newsToAdd.body == '') {
-                $scope.errorMsg = 'Form is not valid';
+                errorService.showError('Form is not valid');
                 return;
             }
+
+            $scope.newsToAdd.body = linkify.linkifyString($scope.newsToAdd.body);
 
             newsService.create($scope.newsToAdd)
                 .then(function(res) {
                     $state.go('news');
                 }, function(err) {
-                    $scope.errorMsg = 'Failed to create';
+                    errorService.showError('Failed to create');
                 });
         };
 

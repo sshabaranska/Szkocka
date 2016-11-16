@@ -1,0 +1,49 @@
+.top-nav-bar {
+    position: fixed;
+    background-color:rgba(26, 38, 52, 0.6)!important;
+}
+.bg-light {
+    background-color:rgba(255,255,255,0.17)!important;
+}
+.bg-strong {
+    background-color:rgba(255,255,255,1)!important;
+}
+.top-nav-bar .md-toolbar-tools{
+    background-color:none;
+    padding: 0 8px;
+}
+.top-nav-bar .brand {
+    background-color: #ff5252;
+    width: 35px;
+    font-size: 25px;
+    font-weight: bold;
+}
+.top-nav-bar .md-button {
+    min-width: 0;
+    font-weight: 900;
+}
+.top-nav-bar .md-toolbar-tools > .md-button:first-child {
+    margin-left: 0;
+}
+.md-sidenav-left .md-button {
+    width: 100%;
+}
+.active {
+    background-color:rgba(255,255,255,0.17);
+}
+.navbar a:focus,
+.navbar a:hover {
+    color: #fff!important;
+}
+.top-nav-bar .md-button.profile,
+.top-nav-bar .md-button.profile-wide {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.top-nav-bar .md-button.profile {
+    max-width: 100px;
+}
+.top-nav-bar .md-button.profile-wide {
+    max-width: 300px;
+}

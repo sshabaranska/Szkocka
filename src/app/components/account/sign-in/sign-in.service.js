@@ -6,7 +6,7 @@
         .factory('signInService', signInService);
 
     /* ngInject */
-    function signInService($http, $q, API_URL, authService, Assert) {
+    function signInService($http, $q, API_URL, authService, Assert, $rootScope) {
         return {
             /**
              * @param  {Object}   user     - user info
@@ -24,11 +24,21 @@
                         deferred.resolve();
                     },
                     function(err) {
-                        $rootScope.signOut();
                         deferred.reject(err);
+                        $rootScope.signOut();
                     });
 
                 return deferred.promise;
+            },
+
+            /**
+             * @param  {String}   email
+             * @return {Promise}
+             */
+            forgotPassword: function(email) {
+                Assert.isString(email, 'Invalid "email" type');
+
+                return $http.post(API_URL + 'users/reset-passwords', {email: email});
             }
         };
     }
